@@ -30,5 +30,3 @@ class TestElements:
             text_box_page.open()
             assert text_box_page.get_placeholder_permanent_address() == "Permanent Address", \
                 "Can not find placeholder Permanent Address"
-
-
