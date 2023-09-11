@@ -26,8 +26,7 @@ class BasePage:
         self.element_is_visible(locator).send_keys(key)
 
     def click_button(self, locator):
-        btn = self.element_is_clickable(locator)
-        btn.click()
+        self.element_is_clickable(locator).click()
 
     def element_is_visible(self, locator, timeout=10):
         """
@@ -111,7 +110,8 @@ class BasePage:
     #     input_field.send_keys(value)
     #     return input_field
     #
-    # def get_text(self, locator):
-    #     text = self.element_is_visible(locator, 20)
-    #     return text.text
-    #
+    def get_text(self, locator):
+        return self.element_is_visible(locator, 20).text
+
+    def get_text_split(self, locator):
+        return self.element_is_present(locator, 10).text.split(':')[1]
