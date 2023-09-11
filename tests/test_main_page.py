@@ -17,4 +17,3 @@ class TestMainPage:
         actual_title = page.get_actual_title_of_current_page()
         assert actual_title == "DEMOQA", \
             f"Expected title page: 'DEMOQA', Actual title page: {actual_title}"
-

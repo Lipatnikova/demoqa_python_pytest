@@ -1,6 +1,5 @@
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait as wait
 
 
 class BasePage:
@@ -18,17 +17,21 @@ class BasePage:
     def get_actual_url_of_current_page(self):
         actual_url = self.driver.current_url
         return actual_url
-    #
-    # def element_is_visible(self, locator, timeout=10):
-    #     """
-    #     This method expects to verify that the element is present in the DOM tree, visible, and displayed on the page.
-    #     Visibility means that the element is not only displayed but also has a height and width greater than 0.
-    #     Locator - is used to find the element.
-    #     Timeout - the duration it will wait for. The default is set to 5 seconds, but it can be modified if needed.
-    #     """
-    #     self.go_to_element(self.element_is_present(locator))
-    #     return wait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
-    #
+
+    def get_placeholder(self, locator):
+        placeholder = self.element_is_visible(locator).get_attribute('placeholder')
+        return placeholder
+
+    def element_is_visible(self, locator, timeout=10):
+        """
+        This method expects to verify that the element is present in the DOM tree, visible, and displayed on the page.
+        Visibility means that the element is not only displayed but also has a height and width greater than 0.
+        Locator - is used to find the element.
+        Timeout - the duration it will wait for. The default is set to 5 seconds, but it can be modified if needed.
+        """
+        self.go_to_element(self.element_is_present(locator))
+        return wait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
+
     # def elements_are_visible(self, locator, timeout=10):
     #     """
     #     This method expects to verify that the elements are present in the DOM tree, visible and displayed on the page.
@@ -38,15 +41,15 @@ class BasePage:
     #     """
     #     return wait(self.driver, timeout).until(EC.visibility_of_all_elements_located(locator))
     #
-    # def element_is_present(self, locator, timeout=5):
-    #     """
-    #     This method expects to verify that the element is present in the DOM tree,
-    #     but not necessarily visible and displayed on the page.
-    #     Locator - is used to find the element.
-    #     Timeout - the duration it will wait for. The default is set to 5 seconds, but it can be modified if needed.
-    #     """
-    #     return wait(self.driver, timeout).until(EC.presence_of_element_located(locator))
-    #
+    def element_is_present(self, locator, timeout=5):
+        """
+        This method expects to verify that the element is present in the DOM tree,
+        but not necessarily visible and displayed on the page.
+        Locator - is used to find the element.
+        Timeout - the duration it will wait for. The default is set to 5 seconds, but it can be modified if needed.
+        """
+        return wait(self.driver, timeout).until(EC.presence_of_element_located(locator))
+
     # def elements_are_present(self, locator, timeout=5):
     #     """
     #        This method expects to verify that the elements are present in the DOM tree,
@@ -65,12 +68,12 @@ class BasePage:
     #     """
     #     return wait(self.driver, timeout).until(EC.element_to_be_clickable(locator))
     #
-    # def go_to_element(self, element):
-    #     """
-    #     This method scrolls the page to the selected element, making it visible to the user.
-    #     """
-    #     self.driver.execute_script("arguments[0].scrollIntoView();", element)
-    #
+    def go_to_element(self, element):
+        """
+        This method scrolls the page to the selected element, making it visible to the user.
+        """
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
     # def action_move_to_element(self, element):
     #     """
     #     This method moves the mouse cursor to the center of the selected element, simulating a hover action.

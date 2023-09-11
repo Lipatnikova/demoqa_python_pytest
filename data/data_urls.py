@@ -1,7 +1,7 @@
 MAIN_PAGE_URL = "https://demoqa.com/"
 
 ELEMENTS_URL = "https://demoqa.com/elements"
-TEXT_BOX = "https://demoqa.com/text-box"
+TEXT_BOX_URL = "https://demoqa.com/text-box"
 CHECK_BOX_URL = "https://demoqa.com/checkbox"
 RADIO_BUTTON_URL = "https://demoqa.com/radio-button"
 WEB_TABLES_URL = "https://demoqa.com/webtables"
