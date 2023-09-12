@@ -56,4 +56,3 @@ class TextBoxPage(BasePage):
 
     def get_placeholder_permanent_address(self):
         return self.get_placeholder(self.locators.PERMANENT_ADDRESS)
-
