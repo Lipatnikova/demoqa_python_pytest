@@ -1,3 +1,5 @@
+import time
+
 import pytest
 from pages.elements_page import TextBoxPage
 from data.data_urls import TEXT_BOX_URL
@@ -53,6 +55,21 @@ class TestElements:
             new_permanent_address = text_box_page.get_text_new_permanent_address()
             assert permanent_address == new_permanent_address, \
                 "The Permanent Address in the field and the new Current Address generated below do not match"
+
+        def test_verify_correct_email(self, driver):
+            text_box_page = TextBoxPage(driver, TEXT_BOX_URL)
+            text_box_page.open()
+            email = text_box_page.fill_email()
+            text_box_page.is_valid_email(email)
+            assert text_box_page.is_valid_email(email), "Invalid email"
+
+        @pytest.mark.parametrize('email', ["   ", "12313123", "AsRhf", "@dfdgd", ".com"])
+        def test_verify_incorrect_email(self, driver, email):
+            text_box_page = TextBoxPage(driver, TEXT_BOX_URL)
+            text_box_page.open()
+            text_box_page.fill_incorrect_email(email)
+            text_box_page.is_valid_email(email)
+            assert text_box_page.is_valid_email(email) is False, "Invalid email"
 
         def test_verify_placeholder_full_name(self, driver):
             text_box_page = TextBoxPage(driver, TEXT_BOX_URL)

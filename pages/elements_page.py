@@ -1,3 +1,4 @@
+import re
 from generator.generator import get_person
 from pages.base_page import BasePage
 from locators.elements_page_locators import TextBoxPageLocators
@@ -44,6 +45,15 @@ class TextBoxPage(BasePage):
 
     def get_text_new_permanent_address(self):
         return self.get_text_split(self.locators.CREATED_PERMANENT_ADDRESS)
+
+    def is_valid_email(self, email):
+        """This method is validation Email field for correct email format"""
+        pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$'
+        valid_email = re.match(pattern, email)
+        return valid_email is not None
+
+    def fill_incorrect_email(self, email):
+        self.send_keys_in_field(self.locators.EMAIL, email)
 
     def get_placeholder_full_name(self):
         return self.get_placeholder(self.locators.FULL_NAME)
