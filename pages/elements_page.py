@@ -1,7 +1,8 @@
+import random
 import re
 from generator.generator import get_person
 from pages.base_page import BasePage
-from locators.elements_page_locators import TextBoxPageLocators
+from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators
 
 
 class TextBoxPage(BasePage):
@@ -66,3 +67,37 @@ class TextBoxPage(BasePage):
 
     def get_placeholder_permanent_address(self):
         return self.get_placeholder(self.locators.PERMANENT_ADDRESS)
+
+
+class CheckBoxPage(BasePage):
+    locators = CheckBoxPageLocators()
+
+    def open_full_list_expand_button(self):
+        self.element_is_visible(self.locators.EXPAND_BUTTON).click()
+
+    def click_random_checkboxes(self):
+        item_list = self.elements_are_visible(self.locators.ITEM_LIST)
+        count = 3
+        while count != 0:
+            item = item_list[random.randint(1, 16)]
+            if count > 0:
+                self.go_to_element(item)
+                item.click()
+                count -= 1
+            else:
+                break
+
+    def get_checked_box(self):
+        checked_list = self.elements_are_present(self.locators.CHECKED_ITEMS)
+        lst = []
+        for i in checked_list:
+            item = i.find_element("xpath", self.locators.TITLE_ITEM)
+            lst.append(item.text)
+        return str(lst).replace(' ', '').replace('doc', '').replace('.', '').lower()
+
+    def get_output_result(self):
+        result_list = self.elements_are_present(self.locators.OUTPUT)
+        lst = []
+        for i in result_list:
+            lst.append(i.text)
+        return str(lst).replace(' ', '').lower()

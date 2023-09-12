@@ -1,8 +1,8 @@
 import time
 
 import pytest
-from pages.elements_page import TextBoxPage
-from data.data_urls import TEXT_BOX_URL
+from pages.elements_page import TextBoxPage, CheckBoxPage
+from data.data_urls import TEXT_BOX_URL, CHECK_BOX_URL
 
 
 class TestElements:
@@ -95,3 +95,13 @@ class TestElements:
             text_box_page.open()
             assert text_box_page.get_placeholder_permanent_address() == "Permanent Address", \
                 "Can not find placeholder Permanent Address"
+
+    class TestCheckBox:
+        def test_check_box(self, driver):
+            check_box_page = CheckBoxPage(driver, CHECK_BOX_URL)
+            check_box_page.open()
+            check_box_page.open_full_list_expand_button()
+            check_box_page.click_random_checkboxes()
+            input_checkbox = check_box_page.get_checked_box()
+            output_checkbox = check_box_page.get_output_result()
+            assert input_checkbox == output_checkbox, "Input text and output checkbox is not equal"
