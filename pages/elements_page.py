@@ -34,7 +34,16 @@ class TextBoxPage(BasePage):
         self.click_button(self.locators.SUBMIT)
 
     def get_text_new_full_name(self):
-        self.get_text_split(self.locators.CREATED_FULL_NAME)
+        return self.get_text_split(self.locators.CREATED_FULL_NAME)
+
+    def get_text_new_email(self):
+        return self.get_text_split(self.locators.CREATED_EMAIL)
+
+    def get_text_new_current_address(self):
+        return self.get_text_split(self.locators.CREATED_CURRENT_ADDRESS)
+
+    def get_text_new_permanent_address(self):
+        return self.get_text_split(self.locators.CREATED_PERMANENT_ADDRESS)
 
     def get_placeholder_full_name(self):
         return self.get_placeholder(self.locators.FULL_NAME)
