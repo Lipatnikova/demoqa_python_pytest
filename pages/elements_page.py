@@ -2,7 +2,7 @@ import random
 import re
 from generator.generator import get_person
 from pages.base_page import BasePage
-from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators
+from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators
 
 
 class TextBoxPage(BasePage):
@@ -56,6 +56,12 @@ class TextBoxPage(BasePage):
     def fill_incorrect_email(self, email):
         self.send_keys_in_field(self.locators.EMAIL, email)
 
+    def get_border_color_field(self, locator):
+        return self.get_border_color(locator)
+
+    def active_field(self, locator):
+        self.element_is_visible(locator).click()
+
     def get_placeholder_full_name(self):
         return self.get_placeholder(self.locators.FULL_NAME)
 
@@ -101,3 +107,10 @@ class CheckBoxPage(BasePage):
         for i in result_list:
             lst.append(i.text)
         return str(lst).replace(' ', '').lower()
+
+
+class RadioButton(BasePage):
+    locators = RadioButtonPageLocators()
+
+    def title_question_text(self):
+        return self.get_text(self.locators.TITLE_QUESTION)

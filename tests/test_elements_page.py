@@ -1,8 +1,9 @@
 import time
 
 import pytest
-from pages.elements_page import TextBoxPage, CheckBoxPage
-from data.data_urls import TEXT_BOX_URL, CHECK_BOX_URL
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButton
+from data.data_urls import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL
+from locators.elements_page_locators import TextBoxPageLocators as locator
 
 
 class TestElements:
@@ -71,6 +72,17 @@ class TestElements:
             text_box_page.is_valid_email(email)
             assert text_box_page.is_valid_email(email) is False, "Invalid email"
 
+        @pytest.mark.parametrize('field', [locator.FULL_NAME, locator.EMAIL,
+                                             locator.CURRENT_ADDRESS, locator.PERMANENT_ADDRESS])
+        def test_verify_border_color_of_the_field(self, driver, field):
+            text_box_page = TextBoxPage(driver, TEXT_BOX_URL)
+            text_box_page.open()
+            border_before = text_box_page.get_border_color(field)
+            text_box_page.active_field(field)
+            border_after = text_box_page.get_border_color(field)
+            assert border_before != border_after, \
+                "Border color of the field has not changed after click"
+
         def test_verify_placeholder_full_name(self, driver):
             text_box_page = TextBoxPage(driver, TEXT_BOX_URL)
             text_box_page.open()
@@ -105,3 +117,11 @@ class TestElements:
             input_checkbox = check_box_page.get_checked_box()
             output_checkbox = check_box_page.get_output_result()
             assert input_checkbox == output_checkbox, "Input text and output checkbox is not equal"
+
+    class TestRadioButton:
+        def test_verify_title_question_is_display(self, driver):
+            radio_button_page = RadioButton(driver, RADIO_BUTTON_URL)
+            radio_button_page.open()
+            title_text = radio_button_page.title_question_text()
+            for item in title_text:
+                assert len(item) != 0, "Title question is not display correct"

@@ -23,6 +23,7 @@ class CheckBoxPageLocators:
 
 
 class RadioButtonPageLocators:
+    TITLE_QUESTION = (By.CSS_SELECTOR, "div.mb-3")
     YES_BUTTON = (By.CSS_SELECTOR, "label[class^='custom'][for='yesRadio']")
     IMPRESSIVE_BUTTON = (By.CSS_SELECTOR, "label[class^='custom'][for='impressiveRadio']")
     NO_BUTTON = (By.CSS_SELECTOR, "label[class^='custom'][for='noRadio']")

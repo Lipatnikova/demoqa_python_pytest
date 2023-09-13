@@ -22,6 +22,10 @@ class BasePage:
         placeholder = self.element_is_visible(locator).get_attribute('placeholder')
         return placeholder
 
+    def get_border_color(self, locator):
+        border_color = self.element_is_visible(locator).value_of_css_property('border-color')
+        return border_color
+
     def send_keys_in_field(self, locator, key):
         self.element_is_visible(locator).send_keys(key)
 
