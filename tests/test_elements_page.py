@@ -1,6 +1,6 @@
 import pytest
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, ButtonsPage
-from data.data_urls import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL, BUTTONS_URL
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, ButtonsPage, LinksPage
+from data.data_urls import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL, BUTTONS_URL, LINKS_URL
 from locators.elements_page_locators import TextBoxPageLocators as locator
 
 
@@ -169,3 +169,13 @@ class TestElements:
             msg = buttons_page.get_text_msg_about_click()
             assert msg == "You have done a dynamic click", \
                 "Message about click is not correct"
+
+    class TestLinksPage:
+        def test_switch_between_opened_windows_after_click_home_link(self, driver):
+            links_page = LinksPage(driver, LINKS_URL)
+            links_page.open()
+            links_page.click_home_link()
+            assert links_page.count_opened_windows() == 2, \
+                "After click link the second window is not revealed."
+
+

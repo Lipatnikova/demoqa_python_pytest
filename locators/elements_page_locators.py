@@ -64,10 +64,15 @@ class ButtonsPageLocators:
 
 
 class LinksPageLocators:
-    SIMPLE_LINK = (By.CSS_SELECTOR, "a[id='simpleLink']")
-    BAD_REQUEST_LINK = (By.CSS_SELECTOR, "a[id='bad-request']")
-    NOT_FOUND_LINK = (By.CSS_SELECTOR, "a[id='invalid-url']")
-    FORBIDDEN_LINK = (By.CSS_SELECTOR, "a[id='forbidden']")
+
+    # Following links will open new tab
+    HOME_LINK = (By.CSS_SELECTOR, "a[id='simpleLink']")
+    HOME_DYNAMIC_LINK = (By.CSS_SELECTOR, "a[id='dynamicLink']")
+
+    # Following links will send an api call
+    # BAD_REQUEST_LINK = (By.CSS_SELECTOR, "a[id='bad-request']")
+    # NOT_FOUND_LINK = (By.CSS_SELECTOR, "a[id='invalid-url']")
+    # FORBIDDEN_LINK = (By.CSS_SELECTOR, "a[id='forbidden']")
     ALL_LINKS = [(By.CSS_SELECTOR, "a[id='created']"),
                  (By.CSS_SELECTOR, "a[id='no-content']"),
                  (By.CSS_SELECTOR, "a[id='moved']"),

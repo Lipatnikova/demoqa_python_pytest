@@ -5,7 +5,10 @@ import time
 from generator.generator import get_person
 from pages.base_page import BasePage
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
-    ButtonsPageLocators
+    ButtonsPageLocators, LinksPageLocators
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class TextBoxPage(BasePage):
@@ -166,3 +169,18 @@ class ButtonsPage(BasePage):
 
     def get_text_msg_about_click(self):
         return self.get_text(self.locators.MSG_CLICK_ME)
+
+
+class LinksPage(BasePage):
+    locators = LinksPageLocators
+
+    def click_home_link(self):
+        self.click_button(self.locators.HOME_LINK)
+        time.sleep(5)
+
+    def count_opened_windows(self):
+        handles = self.driver.window_handles
+        return len(handles)
+
+    def click_home_dynamic_link(self):
+        self.click_button(self.locators.HOME_A7B9C_LINK)
