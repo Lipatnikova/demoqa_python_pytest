@@ -1,3 +1,4 @@
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
 
@@ -84,27 +85,19 @@ class BasePage:
         """
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
 
-    # def action_move_to_element(self, element):
-    #     """
-    #     This method moves the mouse cursor to the center of the selected element, simulating a hover action.
-    #     It can be used to test the interactivity of an element when the mouse cursor is hovering over it.
-    #     """
-    #     action = ActionChains(self.driver)
-    #     action.move_to_element(element)
-    #     action.perform()
-    #
-    # def find_element(self, locator):
-    #     """Find element (unpacking)"""
-    #     return self.driver.find_element(*locator)
-    #
-    # def action_move_to_element_click_no_new_window(self, locator):
-    #     """
-    #     This method moves the mouse cursor to the center of the selected element.
-    #     Perform a click action without navigating to a new page
-    #     """
-    #     element = self.find_element(locator)
-    #     actions = ActionChains(self.driver)
-    #     actions.move_to_element(element).click().perform()
+    def action_move_to_element(self, element):
+        """
+        This method moves the mouse cursor to the center of the selected element, simulating a hover action.
+        It can be used to test the interactivity of an element when the mouse cursor is hovering over it.
+        """
+        action = ActionChains(self.driver)
+        action.move_to_element(element)
+        action.perform()
+
+    def find_element(self, locator):
+        """Find element (unpacking)"""
+        return self.driver.find_element(*locator)
+
     #
     # def fill_in_field(self, locator, value):
     #     """This method fills in a specified field with provided value"""
@@ -113,9 +106,40 @@ class BasePage:
     #     input_field.clear()
     #     input_field.send_keys(value)
     #     return input_field
-    #
+
     def get_text(self, locator):
         return self.element_is_visible(locator, 20).text
 
     def get_text_split(self, locator):
         return self.element_is_present(locator, 10).text.split(':')[1]
+
+    def action_move_to_element_double_click(self, locator):
+        element = self.find_element(locator)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).double_click().perform()
+
+    def action_move_to_element_right_click(self, locator):
+        element = self.find_element(locator)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).context_click().perform()
+
+    def action_move_to_element_click(self, locator):
+        """
+        This method moves the mouse cursor to the center of the selected element.
+        Perform a click action without navigating to a new page
+        """
+        element = self.find_element(locator)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).click().perform()
+
+    def check_element_hover_style_using_js(self, element, css_property):
+        """
+        This method finds a visible element using the provided locator,
+        simulates a hover action by moving the cursor to it,
+        and then returns the value of the specified CSS property of the element using JavaScript.
+        Locator - is used to find the element.
+        Css_property - the name of the CSS property whose value is to be returned.
+        """
+        element_property = self.driver.execute_script(
+            f"return getComputedStyle(arguments[0]).getPropertyValue('{css_property}');", element)
+        return element_property

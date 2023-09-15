@@ -4,7 +4,8 @@ import time
 
 from generator.generator import get_person
 from pages.base_page import BasePage
-from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators
+from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
+    ButtonsPageLocators
 
 
 class TextBoxPage(BasePage):
@@ -111,7 +112,7 @@ class CheckBoxPage(BasePage):
         return str(lst).replace(' ', '').lower()
 
 
-class RadioButton(BasePage):
+class RadioButtonPage(BasePage):
     locators = RadioButtonPageLocators()
 
     def title_question_text(self):
@@ -128,3 +129,40 @@ class RadioButton(BasePage):
 
     def get_text_message_result(self):
         return self.get_text(self.locators.OUTPUT_RESULT)
+
+
+class WebTablesPage(BasePage):
+    pass
+
+
+class ButtonsPage(BasePage):
+    locators = ButtonsPageLocators
+
+    def double_click(self):
+        self.action_move_to_element_double_click(self.locators.DOUBLE_CLICK_BTN)
+
+    def get_text_msg_about_double_click(self):
+        return self.get_text(self.locators.MSG_DOUBLE)
+
+    def cursor_button_double_click(self, driver):
+        """
+        This method hovers the mouse cursor over the button
+        and checks for the button cursor change
+        """
+        cursor_before = self.driver.execute_script("""return window.getComputedStyle(document.body).cursor;""")
+        btn = self.element_is_visible(self.locators.DOUBLE_CLICK_BTN)
+        self.action_move_to_element(btn)
+        cursor_after = self.check_element_hover_style_using_js(btn, "cursor")
+        return cursor_before, cursor_after
+
+    def right_click(self):
+        self.action_move_to_element_right_click(self.locators.RIGHT_CLICK_BTN)
+
+    def get_text_msg_about_right_click(self):
+        return self.get_text(self.locators.MSG_RIGHT)
+
+    def click(self):
+        self.action_move_to_element_click(self.locators.CLICK_ME_BUTTON_BTN)
+
+    def get_text_msg_about_click(self):
+        return self.get_text(self.locators.MSG_CLICK_ME)

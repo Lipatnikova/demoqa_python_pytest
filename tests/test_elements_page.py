@@ -1,8 +1,6 @@
-import time
 import pytest
-import random
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButton
-from data.data_urls import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, ButtonsPage
+from data.data_urls import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL, BUTTONS_URL
 from locators.elements_page_locators import TextBoxPageLocators as locator
 
 
@@ -72,8 +70,8 @@ class TestElements:
             text_box_page.is_valid_email(email)
             assert text_box_page.is_valid_email(email) is False, "Invalid email"
 
-        @pytest.mark.parametrize('field', [locator.FULL_NAME, locator.EMAIL,
-                                             locator.CURRENT_ADDRESS, locator.PERMANENT_ADDRESS])
+        @pytest.mark.parametrize('field', [locator.FULL_NAME, locator.EMAIL, locator.CURRENT_ADDRESS,
+                                           locator.PERMANENT_ADDRESS])
         def test_verify_border_color_of_the_field(self, driver, field):
             text_box_page = TextBoxPage(driver, TEXT_BOX_URL)
             text_box_page.open()
@@ -120,7 +118,7 @@ class TestElements:
 
     class TestRadioButton:
         def test_verify_title_question_is_display(self, driver):
-            radio_button_page = RadioButton(driver, RADIO_BUTTON_URL)
+            radio_button_page = RadioButtonPage(driver, RADIO_BUTTON_URL)
             radio_button_page.open()
             title_text = radio_button_page.title_question_text()
             for item in title_text:
@@ -130,9 +128,44 @@ class TestElements:
 
         @pytest.mark.parametrize('item', radio_buttons_list)
         def test_click_radio_button_compare_text_in_message(self, driver, item):
-            radio_button_page = RadioButton(driver, RADIO_BUTTON_URL)
+            radio_button_page = RadioButtonPage(driver, RADIO_BUTTON_URL)
             radio_button_page.open()
             radio_button_page.click_random_radio_button(item)
             text_in_message = radio_button_page.get_text_message_result()
             assert text_in_message == item, \
                 f"{item} radiobutton test is not the same"
+
+    class TestWebTablesPage:
+        pass
+
+    class TestButtonsPage:
+
+        def test_button_double_click(self, driver):
+            buttons_page = ButtonsPage(driver, BUTTONS_URL)
+            buttons_page.open()
+            buttons_page.double_click()
+            msg = buttons_page.get_text_msg_about_double_click()
+            assert msg == "You have done a double click", \
+                "Message about click is not correct"
+
+        def test_button_hover_verify_cursor_double_click(self, driver):
+            buttons_page = ButtonsPage(driver, BUTTONS_URL)
+            buttons_page.open()
+            cursor_before, cursor_after = buttons_page.cursor_button_double_click(driver)
+            assert cursor_before != cursor_after, "Mouse cursor has not changed"
+
+        def test_button_right_click(self, driver):
+            buttons_page = ButtonsPage(driver, BUTTONS_URL)
+            buttons_page.open()
+            buttons_page.right_click()
+            msg = buttons_page.get_text_msg_about_right_click()
+            assert msg == "You have done a right click", \
+                "Message about click is not correct"
+
+        def test_button_click(self, driver):
+            buttons_page = ButtonsPage(driver, BUTTONS_URL)
+            buttons_page.open()
+            buttons_page.click()
+            msg = buttons_page.get_text_msg_about_click()
+            assert msg == "You have done a dynamic click", \
+                "Message about click is not correct"
