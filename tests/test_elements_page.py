@@ -1,6 +1,6 @@
 import time
-
 import pytest
+import random
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButton
 from data.data_urls import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL
 from locators.elements_page_locators import TextBoxPageLocators as locator
@@ -125,3 +125,14 @@ class TestElements:
             title_text = radio_button_page.title_question_text()
             for item in title_text:
                 assert len(item) != 0, "Title question is not display correct"
+
+        radio_buttons_list = ['Yes', 'Impressive', 'No']
+
+        @pytest.mark.parametrize('item', radio_buttons_list)
+        def test_click_radio_button_compare_text_in_message(self, driver, item):
+            radio_button_page = RadioButton(driver, RADIO_BUTTON_URL)
+            radio_button_page.open()
+            radio_button_page.click_random_radio_button(item)
+            text_in_message = radio_button_page.get_text_message_result()
+            assert text_in_message == item, \
+                f"{item} radiobutton test is not the same"

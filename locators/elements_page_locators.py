@@ -24,6 +24,7 @@ class CheckBoxPageLocators:
 
 class RadioButtonPageLocators:
     TITLE_QUESTION = (By.CSS_SELECTOR, "div.mb-3")
+    RADIO_BTN = (By.CSS_SELECTOR, "[class*='custom-radio custom-control-inline']")
     YES_BUTTON = (By.CSS_SELECTOR, "label[class^='custom'][for='yesRadio']")
     IMPRESSIVE_BUTTON = (By.CSS_SELECTOR, "label[class^='custom'][for='impressiveRadio']")
     NO_BUTTON = (By.CSS_SELECTOR, "label[class^='custom'][for='noRadio']")

@@ -1,5 +1,7 @@
 import random
 import re
+import time
+
 from generator.generator import get_person
 from pages.base_page import BasePage
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators
@@ -114,3 +116,15 @@ class RadioButton(BasePage):
 
     def title_question_text(self):
         return self.get_text(self.locators.TITLE_QUESTION)
+
+    def click_random_radio_button(self, item):
+        choices = {
+            'Yes': self.locators.YES_BUTTON,
+            'Impressive': self.locators.IMPRESSIVE_BUTTON,
+            'No': self.locators.NO_BUTTON
+        }
+        click_button = self.element_is_visible(choices[item]).click()
+        return click_button
+
+    def get_text_message_result(self):
+        return self.get_text(self.locators.OUTPUT_RESULT)
