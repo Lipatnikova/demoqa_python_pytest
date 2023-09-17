@@ -1,7 +1,10 @@
 import pytest
+
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, ButtonsPage, LinksPage
-from data.data_urls import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL, BUTTONS_URL, LINKS_URL
-from locators.elements_page_locators import TextBoxPageLocators as locator
+from data.data_urls import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL, BUTTONS_URL, LINKS_URL, MAIN_PAGE_URL
+from data.data import LinksAndUrls
+from locators.elements_page_locators import TextBoxPageLocators
+from locators.elements_page_locators import LinksPageLocators
 
 
 class TestElements:
@@ -70,8 +73,7 @@ class TestElements:
             text_box_page.is_valid_email(email)
             assert text_box_page.is_valid_email(email) is False, "Invalid email"
 
-        @pytest.mark.parametrize('field', [locator.FULL_NAME, locator.EMAIL, locator.CURRENT_ADDRESS,
-                                           locator.PERMANENT_ADDRESS])
+        @pytest.mark.parametrize('field', TextBoxPageLocators.FIELDS)
         def test_verify_border_color_of_the_field(self, driver, field):
             text_box_page = TextBoxPage(driver, TEXT_BOX_URL)
             text_box_page.open()
@@ -171,11 +173,27 @@ class TestElements:
                 "Message about click is not correct"
 
     class TestLinksPage:
-        def test_switch_between_opened_windows_after_click_home_link(self, driver):
+        @pytest.mark.parametrize('link', LinksPageLocators.HOMES_LINKS)
+        def test_switch_between_opened_windows_after_click_home_links(self, driver, link):
             links_page = LinksPage(driver, LINKS_URL)
             links_page.open()
-            links_page.click_home_link()
+            links_page.click_link(link)
             assert links_page.count_opened_windows() == 2, \
                 "After click link the second window is not revealed."
 
+        @pytest.mark.parametrize('link', LinksPageLocators.HOMES_LINKS)
+        def test_verify_home_links_href(self, driver, link):
+            links_page = LinksPage(driver, LINKS_URL)
+            links_page.open()
+            actual_href = links_page.get_link_href(link)
+            assert actual_href == MAIN_PAGE_URL, \
+                "The link is broken or url is incorrect"
 
+        @pytest.mark.parametrize("link, url", LinksAndUrls.LINKS_AND_URLS)
+        def test_check_all_links(self, driver, link, url):
+            link_page = LinksPage(driver, "https://demoqa.com/links")
+            link_page.open()
+            link_page.click_link(link)
+            msg = link_page.text_msg_after_click()
+            status_code = link_page.get_status_code(url)
+            assert status_code in msg, f"Wrong status code. Actual code:{status_code}, expected code:{msg}"

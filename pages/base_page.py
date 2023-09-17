@@ -143,3 +143,10 @@ class BasePage:
         element_property = self.driver.execute_script(
             f"return getComputedStyle(arguments[0]).getPropertyValue('{css_property}');", element)
         return element_property
+
+    def get_href(self, locator):
+        placeholder = self.element_is_visible(locator).get_attribute('href')
+        return placeholder
+
+    def refresh_page(self):
+        self.driver.refresh()

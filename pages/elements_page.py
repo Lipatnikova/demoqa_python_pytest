@@ -1,14 +1,11 @@
 import random
 import re
-import time
+import requests
 
 from generator.generator import get_person
 from pages.base_page import BasePage
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
     ButtonsPageLocators, LinksPageLocators
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class TextBoxPage(BasePage):
@@ -174,13 +171,20 @@ class ButtonsPage(BasePage):
 class LinksPage(BasePage):
     locators = LinksPageLocators
 
-    def click_home_link(self):
-        self.click_button(self.locators.HOME_LINK)
-        time.sleep(5)
+    def click_link(self, link):
+        self.element_is_visible(link).click()
 
     def count_opened_windows(self):
         handles = self.driver.window_handles
         return len(handles)
 
-    def click_home_dynamic_link(self):
-        self.click_button(self.locators.HOME_A7B9C_LINK)
+    def get_link_href(self, link):
+        return self.get_href(link)
+
+    def text_msg_after_click(self):
+        return self.get_text(self.locators.TEXT_AFTER_CLICK)
+
+    def get_status_code(self, link):
+        response = requests.get(link)
+        status_code = str(response.status_code)
+        return status_code

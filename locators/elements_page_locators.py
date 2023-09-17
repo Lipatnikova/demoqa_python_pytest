@@ -7,6 +7,7 @@ class TextBoxPageLocators:
     CURRENT_ADDRESS = (By.CSS_SELECTOR, "textarea[id='currentAddress']")
     PERMANENT_ADDRESS = (By.CSS_SELECTOR, "textarea[id='permanentAddress']")
     SUBMIT = (By.CSS_SELECTOR, "button[id='submit']")
+    FIELDS = [FULL_NAME, EMAIL, CURRENT_ADDRESS, PERMANENT_ADDRESS]
 
     CREATED_FULL_NAME = (By.CSS_SELECTOR, "#output #name")
     CREATED_EMAIL = (By.CSS_SELECTOR, "#output #email")
@@ -68,19 +69,7 @@ class LinksPageLocators:
     # Following links will open new tab
     HOME_LINK = (By.CSS_SELECTOR, "a[id='simpleLink']")
     HOME_DYNAMIC_LINK = (By.CSS_SELECTOR, "a[id='dynamicLink']")
-
-    # Following links will send an api call
-    # BAD_REQUEST_LINK = (By.CSS_SELECTOR, "a[id='bad-request']")
-    # NOT_FOUND_LINK = (By.CSS_SELECTOR, "a[id='invalid-url']")
-    # FORBIDDEN_LINK = (By.CSS_SELECTOR, "a[id='forbidden']")
-    ALL_LINKS = [(By.CSS_SELECTOR, "a[id='created']"),
-                 (By.CSS_SELECTOR, "a[id='no-content']"),
-                 (By.CSS_SELECTOR, "a[id='moved']"),
-                 (By.CSS_SELECTOR, "a[id='bad-request']"),
-                 (By.CSS_SELECTOR, "a[id='unauthorized']"),
-                 (By.CSS_SELECTOR, "a[id='forbidden']"),
-                 (By.CSS_SELECTOR, "a[id='invalid-url']"),
-                 ]
+    HOMES_LINKS = [HOME_LINK, HOME_DYNAMIC_LINK]
     TEXT_AFTER_CLICK = (By.CSS_SELECTOR, "p[id='linkResponse']")
     BROKEN_IMAGE = (By.XPATH, "//img[contains(@src, 'Toolsqa_1.jpg')]")
 
