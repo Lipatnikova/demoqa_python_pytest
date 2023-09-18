@@ -1,10 +1,12 @@
 import pytest
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, ButtonsPage, LinksPage
-from data.data_urls import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL, BUTTONS_URL, LINKS_URL, MAIN_PAGE_URL
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, ButtonsPage, LinksPage, BrokenLinksImage
+from data.data_urls import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL, BUTTONS_URL, LINKS_URL, MAIN_PAGE_URL, \
+    BROKEN_LINKS_URL
 from data.data import LinksAndUrls
 from locators.elements_page_locators import TextBoxPageLocators
 from locators.elements_page_locators import LinksPageLocators
+from locators.elements_page_locators import BrokenLinksImageLocators
 
 
 class TestElements:
@@ -153,7 +155,7 @@ class TestElements:
         def test_button_hover_verify_cursor_double_click(self, driver):
             buttons_page = ButtonsPage(driver, BUTTONS_URL)
             buttons_page.open()
-            cursor_before, cursor_after = buttons_page.cursor_button_double_click(driver)
+            cursor_before, cursor_after = buttons_page.cursor_button_double_click()
             assert cursor_before != cursor_after, "Mouse cursor has not changed"
 
         def test_button_right_click(self, driver):
@@ -197,3 +199,11 @@ class TestElements:
             msg = link_page.text_msg_after_click()
             status_code = link_page.get_status_code(url)
             assert status_code in msg, f"Wrong status code. Actual code:{status_code}, expected code:{msg}"
+
+    class TestBrokenLinksImage:
+        @pytest.mark.xfail("One image is broken")
+        @pytest.mark.parametrize('img', BrokenLinksImageLocators.IMG)
+        def test_verify_image_is_displayed(self, driver, img):
+            broken_links_img_page = BrokenLinksImage(driver, BROKEN_LINKS_URL)
+            broken_links_img_page.open()
+            assert broken_links_img_page.img_is_displayed(img), "The image is not correct"

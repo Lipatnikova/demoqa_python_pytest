@@ -2,10 +2,12 @@ import random
 import re
 import requests
 
+from PIL import Image, UnidentifiedImageError
+from io import BytesIO
 from generator.generator import get_person
 from pages.base_page import BasePage
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
-    ButtonsPageLocators, LinksPageLocators
+    ButtonsPageLocators, LinksPageLocators, BrokenLinksImageLocators
 
 
 class TextBoxPage(BasePage):
@@ -144,7 +146,7 @@ class ButtonsPage(BasePage):
     def get_text_msg_about_double_click(self):
         return self.get_text(self.locators.MSG_DOUBLE)
 
-    def cursor_button_double_click(self, driver):
+    def cursor_button_double_click(self):
         """
         This method hovers the mouse cursor over the button
         and checks for the button cursor change
@@ -188,3 +190,18 @@ class LinksPage(BasePage):
         response = requests.get(link)
         status_code = str(response.status_code)
         return status_code
+
+
+class BrokenLinksImage(BasePage):
+    locators = BrokenLinksImageLocators
+
+    def img_is_displayed(self, locator):
+        src = self.element_is_visible(locator).get_attribute('src')
+        response = requests.get(src)
+        try:
+            img = Image.open(BytesIO(response.content))
+            return img
+        except UnidentifiedImageError:
+            return "Is not image"
+        except Exception:
+            return "The image is broken"

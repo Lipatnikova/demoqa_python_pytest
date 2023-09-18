@@ -71,7 +71,12 @@ class LinksPageLocators:
     HOME_DYNAMIC_LINK = (By.CSS_SELECTOR, "a[id='dynamicLink']")
     HOMES_LINKS = [HOME_LINK, HOME_DYNAMIC_LINK]
     TEXT_AFTER_CLICK = (By.CSS_SELECTOR, "p[id='linkResponse']")
+
+
+class BrokenLinksImageLocators:
     BROKEN_IMAGE = (By.XPATH, "//img[contains(@src, 'Toolsqa_1.jpg')]")
+    IMAGE = (By.XPATH, "//img[contains(@src, '/images/Toolsqa.jpg'))]")
+    IMG = [IMAGE, BROKEN_IMAGE]
 
 
 class UploadPageLocators:
