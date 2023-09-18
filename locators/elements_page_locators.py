@@ -77,6 +77,9 @@ class BrokenLinksImageLocators:
     BROKEN_IMAGE = (By.XPATH, "//img[contains(@src, 'Toolsqa_1.jpg')]")
     IMAGE = (By.XPATH, "//img[contains(@src, '/images/Toolsqa.jpg'))]")
     IMG = [IMAGE, BROKEN_IMAGE]
+    VALID_LINK = (By.XPATH, '//*[contains(@href, "http://demoqa.com")]')
+    BROKEN_LINK = (By.XPATH, '//a[contains(@href, "http://the-internet.herokuapp.com/status_codes/500")]')
+    LINKS = [VALID_LINK, BROKEN_LINK]
 
 
 class UploadPageLocators:

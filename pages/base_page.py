@@ -1,3 +1,4 @@
+import requests
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
@@ -150,3 +151,8 @@ class BasePage:
 
     def refresh_page(self):
         self.driver.refresh()
+
+    def get_status_code(self, link):
+        response = requests.get(link)
+        status_code = str(response.status_code)
+        return status_code

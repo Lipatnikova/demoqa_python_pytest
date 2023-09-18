@@ -201,9 +201,20 @@ class TestElements:
             assert status_code in msg, f"Wrong status code. Actual code:{status_code}, expected code:{msg}"
 
     class TestBrokenLinksImage:
-        @pytest.mark.xfail("One image is broken")
+        @pytest.mark.xfail("The second image is broken")
         @pytest.mark.parametrize('img', BrokenLinksImageLocators.IMG)
         def test_verify_image_is_displayed(self, driver, img):
             broken_links_img_page = BrokenLinksImage(driver, BROKEN_LINKS_URL)
             broken_links_img_page.open()
-            assert broken_links_img_page.img_is_displayed(img), "The image is not correct"
+            assert broken_links_img_page.img_is_displayed(img), \
+                "The image is not correct"
+
+        @pytest.mark.xfail("The second link is broken")
+        @pytest.mark.parametrize('link', BrokenLinksImageLocators.LINKS)
+        def test_verify_links(self, driver, link):
+            broken_links_img_page = BrokenLinksImage(driver, BROKEN_LINKS_URL)
+            broken_links_img_page.open()
+            url = broken_links_img_page.get_href(link)
+            status_code = broken_links_img_page.get_status_code(url)
+            assert status_code == '200', \
+                f"The link doesn't work. The status code is {status_code}."

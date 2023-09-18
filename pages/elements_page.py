@@ -186,11 +186,6 @@ class LinksPage(BasePage):
     def text_msg_after_click(self):
         return self.get_text(self.locators.TEXT_AFTER_CLICK)
 
-    def get_status_code(self, link):
-        response = requests.get(link)
-        status_code = str(response.status_code)
-        return status_code
-
 
 class BrokenLinksImage(BasePage):
     locators = BrokenLinksImageLocators
