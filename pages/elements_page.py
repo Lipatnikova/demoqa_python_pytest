@@ -1,13 +1,15 @@
+import base64
+import os
 import random
 import re
 import requests
 
 from PIL import Image, UnidentifiedImageError
 from io import BytesIO
-from generator.generator import get_person
+from generator.generator import get_person, generated_file_txt
 from pages.base_page import BasePage
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
-    ButtonsPageLocators, LinksPageLocators, BrokenLinksImageLocators
+    ButtonsPageLocators, LinksPageLocators, BrokenLinksImageLocators, UploadAndDownloadPageLocators
 
 
 class TextBoxPage(BasePage):
@@ -200,3 +202,30 @@ class BrokenLinksImage(BasePage):
             return "Is not image"
         except Exception:
             return "The image is broken"
+
+
+class UploadAndDownload(BasePage):
+    locators = UploadAndDownloadPageLocators
+
+    def download_file(self):
+        link = self.get_href(self.locators.DOWNLOAD_BTN)
+        link_b = base64.b64decode(link) # декодированная байтовая строка
+        path_name_file = rf"../test{random.randint(0, 999)}.jpg"
+        with open(path_name_file, 'wb+') as f:
+            offset = link_b.find(b'\xff\xd8')   # it's a byte stream python.
+            f.write(link_b[offset:])            # image jpeg starts with \xff\xd8\xff\
+            check_file = os.path.exists(path_name_file)  # проверяет существование пути в файловой системе
+            f.close()
+        os.remove(path_name_file)
+        return check_file    # True, если аргумент path ссылается на существующий путь в файловой системе
+
+    def upload_file(self):
+        file_name, path = generated_file_txt()
+        self.send_keys_in_field(self.locators.UPLOAD_FILE, path)
+        os.remove(path)
+        text = self.get_text(self.locators.UPLOADED_FILE)
+        return file_name.split("\\")[-1], text.split("\\")[-1]
+
+
+class DynamicProperties(BasePage):
+    pass

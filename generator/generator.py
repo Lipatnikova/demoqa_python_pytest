@@ -20,3 +20,11 @@ def get_person():
         salary=random.randint(100, 1000000),
         mobile=faker_ru.msisdn()
     )
+
+
+def generated_file_txt():
+    path = rf"C:\Users\svlip\PycharmProjects\demoqa\test{random.randint(0, 999)}.txt"
+    with open(path, 'w+') as f:
+        f.write(f"""Hello World{random.randint(0, 999)}""")
+        f.close()
+    return f.name, path

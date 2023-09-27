@@ -82,16 +82,14 @@ class BrokenLinksImageLocators:
     LINKS = [VALID_LINK, BROKEN_LINK]
 
 
-class UploadPageLocators:
+class UploadAndDownloadPageLocators:
+    DOWNLOAD_BTN = (By.CSS_SELECTOR, "a[id='downloadButton']")
     UPLOAD_FILE = (By.CSS_SELECTOR, "input[id='uploadFile']")
     UPLOADED_FILE = (By.CSS_SELECTOR, "p[id='uploadedFilePath']")
 
 
-class DownLoadPageLocators:
-    DOWNLOAD_FILE = (By.CSS_SELECTOR, "a[id='downloadButton']")
-
-
 class DynamicPropertiesPageLocators:
+    RANDOM_ID_TEXT = (By.XPATH, "//*[@id='app']/div/div/div/div/div/p[1]")
     ENABLE_AFTER_FIVE_SECOND = (By.CSS_SELECTOR, "button[id='enableAfter']")
     COLOR_CHANGE_BUTTON = (By.CSS_SELECTOR, " button[id='colorChange']")
     VISIBLE_AFTER_FIVE_SECOND = (By.CSS_SELECTOR, " button[id='visibleAfter']")

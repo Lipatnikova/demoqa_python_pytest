@@ -146,8 +146,8 @@ class BasePage:
         return element_property
 
     def get_href(self, locator):
-        placeholder = self.element_is_visible(locator).get_attribute('href')
-        return placeholder
+        href = self.element_is_visible(locator).get_attribute('href')
+        return href
 
     def refresh_page(self):
         self.driver.refresh()

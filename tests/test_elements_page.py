@@ -1,8 +1,9 @@
 import pytest
 
-from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, ButtonsPage, LinksPage, BrokenLinksImage
+from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, ButtonsPage, LinksPage, BrokenLinksImage, \
+    UploadAndDownload
 from data.data_urls import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL, BUTTONS_URL, LINKS_URL, MAIN_PAGE_URL, \
-    BROKEN_LINKS_URL
+    BROKEN_LINKS_URL, UPLOAD_AND_DOWNLOAD_URL
 from data.data import LinksAndUrls
 from locators.elements_page_locators import TextBoxPageLocators
 from locators.elements_page_locators import LinksPageLocators
@@ -218,3 +219,21 @@ class TestElements:
             status_code = broken_links_img_page.get_status_code(url)
             assert status_code == '200', \
                 f"The link doesn't work. The status code is {status_code}."
+
+    class TestUploadAndDownloadPage:
+        def test_download_file(self, driver):
+            download_page = UploadAndDownload(driver, UPLOAD_AND_DOWNLOAD_URL)
+            download_page.open()
+            check = download_page.download_file()
+            assert check is True, "The downloaded file is not a image"
+
+        def test_upload_file(self, driver):
+            upload_file = UploadAndDownload(driver, UPLOAD_AND_DOWNLOAD_URL)
+            upload_file.open()
+            file_name, result = upload_file.upload_file()
+            assert file_name == result, "There is not been upload"
+
+    class TestDynamicPropertiesPage:
+
+        def test_verify_random_id_in_text(self, driver):
+            pass
