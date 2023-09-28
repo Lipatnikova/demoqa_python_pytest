@@ -1,9 +1,9 @@
 import pytest
 
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, ButtonsPage, LinksPage, BrokenLinksImage, \
-    UploadAndDownload
+    UploadAndDownload, DynamicPropertiesPage
 from data.data_urls import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL, BUTTONS_URL, LINKS_URL, MAIN_PAGE_URL, \
-    BROKEN_LINKS_URL, UPLOAD_AND_DOWNLOAD_URL
+    BROKEN_LINKS_URL, UPLOAD_AND_DOWNLOAD_URL, DYNAMIC_PROPERTIES_URL
 from data.data import LinksAndUrls
 from locators.elements_page_locators import TextBoxPageLocators
 from locators.elements_page_locators import LinksPageLocators
@@ -236,4 +236,9 @@ class TestElements:
     class TestDynamicPropertiesPage:
 
         def test_verify_random_id_in_text(self, driver):
-            pass
+            dynamic_properties = DynamicPropertiesPage(driver, DYNAMIC_PROPERTIES_URL)
+            dynamic_properties.open()
+            id_1 = dynamic_properties.get_text_random_id()
+            dynamic_properties.refresh_page()
+            id_2 = dynamic_properties.get_text_random_id()
+            assert id_1 != id_2, "The ID has not changed after updating the page"

@@ -9,7 +9,8 @@ from io import BytesIO
 from generator.generator import get_person, generated_file_txt
 from pages.base_page import BasePage
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
-    ButtonsPageLocators, LinksPageLocators, BrokenLinksImageLocators, UploadAndDownloadPageLocators
+    ButtonsPageLocators, LinksPageLocators, BrokenLinksImageLocators, UploadAndDownloadPageLocators, \
+    DynamicPropertiesPageLocators
 
 
 class TextBoxPage(BasePage):
@@ -227,5 +228,9 @@ class UploadAndDownload(BasePage):
         return file_name.split("\\")[-1], text.split("\\")[-1]
 
 
-class DynamicProperties(BasePage):
-    pass
+class DynamicPropertiesPage(BasePage):
+    locators = DynamicPropertiesPageLocators
+
+    def get_text_random_id(self):
+        id_1 = self.get_id(self.locators.RANDOM_ID_TEXT)
+        return id_1

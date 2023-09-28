@@ -156,3 +156,7 @@ class BasePage:
         response = requests.get(link)
         status_code = str(response.status_code)
         return status_code
+
+    def get_id(self, locator):
+        property_id = self.element_is_visible(locator).get_property("id")
+        return property_id
