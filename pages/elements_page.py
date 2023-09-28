@@ -2,6 +2,8 @@ import base64
 import os
 import random
 import re
+import time
+
 import requests
 
 from PIL import Image, UnidentifiedImageError
@@ -234,3 +236,12 @@ class DynamicPropertiesPage(BasePage):
     def get_text_random_id(self):
         id_1 = self.get_id(self.locators.RANDOM_ID_TEXT)
         return id_1
+
+    def verify_element_is_enable(self):
+        return self.element_is_clickable(self.locators.ENABLE_AFTER_FIVE_SECOND, 5).is_enabled()
+
+    def get_color_text(self):
+        return self.get_text_color(self.locators.COLOR_CHANGE_BUTTON)
+
+    def verify_btn_is_not_visible(self):
+        return self.element_is_not_visible(self.locators.VISIBLE_AFTER_FIVE_SECOND)

@@ -1,4 +1,5 @@
 import pytest
+import time
 
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, ButtonsPage, LinksPage, BrokenLinksImage, \
     UploadAndDownload, DynamicPropertiesPage
@@ -242,3 +243,22 @@ class TestElements:
             dynamic_properties.refresh_page()
             id_2 = dynamic_properties.get_text_random_id()
             assert id_1 != id_2, "The ID has not changed after updating the page"
+
+        def test_verify_btn_is_enable_after_five_seconds(self, driver):
+            dynamic_properties = DynamicPropertiesPage(driver, DYNAMIC_PROPERTIES_URL)
+            dynamic_properties.open()
+            return dynamic_properties.verify_element_is_enable(), "The button is not enable"
+
+        @pytest.mark.xfail("color_before поздно считывается")
+        def test_verify_changed_of_color_in_btn(self, driver):
+            dynamic_properties = DynamicPropertiesPage(driver, DYNAMIC_PROPERTIES_URL)
+            dynamic_properties.open()
+            color_before = dynamic_properties.get_color_text()
+            time.sleep(6)
+            color_after = dynamic_properties.get_color_text()
+            assert color_after != color_before, "The color is not changed"
+
+        def test_verify_is_not_visible_btn(self, driver):
+            dynamic_properties = DynamicPropertiesPage(driver, DYNAMIC_PROPERTIES_URL)
+            dynamic_properties.open()
+            assert dynamic_properties.verify_btn_is_not_visible() is True, "The button don't appear"

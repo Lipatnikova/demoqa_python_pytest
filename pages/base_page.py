@@ -1,4 +1,5 @@
 import requests
+from selenium.common import TimeoutException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
@@ -160,3 +161,14 @@ class BasePage:
     def get_id(self, locator):
         property_id = self.element_is_visible(locator).get_property("id")
         return property_id
+
+    def get_text_color(self, locator):
+        text_color = self.find_element(locator).value_of_css_property('color')
+        return text_color
+
+    def element_is_not_visible(self, locator):
+        try:
+            self.element_is_visible(locator)
+        except TimeoutException:
+            return "Timeout"
+        return True
