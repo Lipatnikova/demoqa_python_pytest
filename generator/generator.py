@@ -28,3 +28,6 @@ def generated_file_txt():
         f.write(f"""Hello World{random.randint(0, 999)}""")
         f.close()
     return f.name, path
+
+def random_num():
+    return random.randint(1, 10)

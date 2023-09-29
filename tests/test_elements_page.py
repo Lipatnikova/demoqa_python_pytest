@@ -2,10 +2,11 @@ import pytest
 import time
 
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, ButtonsPage, LinksPage, BrokenLinksImage, \
-    UploadAndDownload, DynamicPropertiesPage
+    UploadAndDownload, DynamicPropertiesPage, WebTablesPage
 from data.data_urls import TEXT_BOX_URL, CHECK_BOX_URL, RADIO_BUTTON_URL, BUTTONS_URL, LINKS_URL, MAIN_PAGE_URL, \
-    BROKEN_LINKS_URL, UPLOAD_AND_DOWNLOAD_URL, DYNAMIC_PROPERTIES_URL
+    BROKEN_LINKS_URL, UPLOAD_AND_DOWNLOAD_URL, DYNAMIC_PROPERTIES_URL, WEB_TABLES_URL
 from data.data import LinksAndUrls
+from generator.generator import random_num
 from locators.elements_page_locators import TextBoxPageLocators
 from locators.elements_page_locators import LinksPageLocators
 from locators.elements_page_locators import BrokenLinksImageLocators
@@ -142,7 +143,16 @@ class TestElements:
                 f"{item} radiobutton test is not the same"
 
     class TestWebTablesPage:
-        pass
+
+        def test_add_new_person_in_the_table(self, driver):
+            web_tables_page = WebTablesPage(driver, WEB_TABLES_URL)
+            web_tables_page.open()
+            for i in range(1, random_num()):
+                web_tables_page.click_btn_add()
+                new_person = web_tables_page.fill_registration_form()
+                web_tables_page.click_btn_submit()
+                result = web_tables_page.get_row_new_added_person()
+                assert new_person in result, "A new person is not in the table"
 
     class TestButtonsPage:
 

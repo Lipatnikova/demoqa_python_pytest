@@ -12,7 +12,7 @@ from generator.generator import get_person, generated_file_txt
 from pages.base_page import BasePage
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
     ButtonsPageLocators, LinksPageLocators, BrokenLinksImageLocators, UploadAndDownloadPageLocators, \
-    DynamicPropertiesPageLocators
+    DynamicPropertiesPageLocators, WebTablesPageLocators
 
 
 class TextBoxPage(BasePage):
@@ -139,7 +139,36 @@ class RadioButtonPage(BasePage):
 
 
 class WebTablesPage(BasePage):
-    pass
+    locators = WebTablesPageLocators
+
+    def click_btn_add(self):
+        self.click_button(self.locators.ADD_BUTTON)
+
+    def fill_registration_form(self):
+        info = next(get_person())
+        first_name = info.first_name
+        last_name = info.last_name
+        email = info.email
+        age = info.age
+        salary = info.salary
+        department = info.department
+        self.send_keys_in_field(self.locators.FIRST_NAME_INPUT, first_name)
+        self.send_keys_in_field(self.locators.LAST_NAME_INPUT, last_name)
+        self.send_keys_in_field(self.locators.EMAIL_INPUT, email)
+        self.send_keys_in_field(self.locators.AGE_INPUT, age)
+        self.send_keys_in_field(self.locators.SALARY_INPUT, salary)
+        self.send_keys_in_field(self.locators.DEPARTMENT_INPUT, department)
+        return [first_name, last_name, str(age), email, str(salary), department]
+
+    def click_btn_submit(self):
+        self.click_button(self.locators.SUBMIT)
+
+    def get_row_new_added_person(self):
+        people = self.elements_are_present(self.locators.FULL_PEOPLE_LIST)
+        data = []
+        for i in people:
+            data.append(i.text.splitlines())
+        return data
 
 
 class ButtonsPage(BasePage):
