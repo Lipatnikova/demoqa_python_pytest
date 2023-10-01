@@ -154,6 +154,18 @@ class TestElements:
                 result = web_tables_page.get_row_new_added_person()
                 assert new_person in result, "A new person is not in the table"
 
+        def test_verify_sorting_when_entering_a_letter_in_the_search(self, driver):
+            web_tables_page = WebTablesPage(driver, WEB_TABLES_URL)
+            web_tables_page.open()
+            key = web_tables_page.fill_input_search()
+            if web_tables_page.is_not_visible_no_rows_found():
+                for i in web_tables_page.get_all_rows():
+                    if '       ' in i.text.splitlines():
+                        pass
+                    else:
+                        assert key in str(i.text.lower().splitlines()), \
+                            "The sorting doesn't work correctly"
+
     class TestButtonsPage:
 
         def test_button_double_click(self, driver):

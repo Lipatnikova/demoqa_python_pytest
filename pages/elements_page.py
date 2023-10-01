@@ -2,13 +2,11 @@ import base64
 import os
 import random
 import re
-import time
-
 import requests
 
 from PIL import Image, UnidentifiedImageError
 from io import BytesIO
-from generator.generator import get_person, generated_file_txt
+from generator.generator import get_person, generated_file_txt, random_letter
 from pages.base_page import BasePage
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
     ButtonsPageLocators, LinksPageLocators, BrokenLinksImageLocators, UploadAndDownloadPageLocators, \
@@ -163,12 +161,23 @@ class WebTablesPage(BasePage):
     def click_btn_submit(self):
         self.click_button(self.locators.SUBMIT)
 
+    def get_all_rows(self):
+        return self.elements_are_present(self.locators.FULL_PEOPLE_LIST)
+
     def get_row_new_added_person(self):
-        people = self.elements_are_present(self.locators.FULL_PEOPLE_LIST)
+        people = self.get_all_rows()
         data = []
         for i in people:
             data.append(i.text.splitlines())
         return data
+
+    def fill_input_search(self):
+        key = random_letter()
+        self.send_keys_in_field(self.locators.SEARCH_INPUT, key)
+        return key
+
+    def is_not_visible_no_rows_found(self):
+        return self.element_is_not_visible(self.locators.NO_ROWS_FOUND)
 
 
 class ButtonsPage(BasePage):

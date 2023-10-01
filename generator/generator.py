@@ -1,5 +1,6 @@
 from faker import Faker
 import random
+import string
 from data.data import Person
 
 faker_ru = Faker('ru_RU')
@@ -31,3 +32,6 @@ def generated_file_txt():
 
 def random_num():
     return random.randint(1, 10)
+
+def random_letter():
+    return chr(random.randint(ord('a'), ord('z')))
