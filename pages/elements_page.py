@@ -142,22 +142,6 @@ class WebTablesPage(BasePage):
     def click_btn_add(self):
         self.click_button(self.locators.ADD_BUTTON)
 
-    def fill_registration_form(self):
-        info = next(get_person())
-        first_name = info.first_name
-        last_name = info.last_name
-        email = info.email
-        age = info.age
-        salary = info.salary
-        department = info.department
-        self.send_keys_in_field(self.locators.FIRST_NAME_INPUT, first_name)
-        self.send_keys_in_field(self.locators.LAST_NAME_INPUT, last_name)
-        self.send_keys_in_field(self.locators.EMAIL_INPUT, email)
-        self.send_keys_in_field(self.locators.AGE_INPUT, age)
-        self.send_keys_in_field(self.locators.SALARY_INPUT, salary)
-        self.send_keys_in_field(self.locators.DEPARTMENT_INPUT, department)
-        return [first_name, last_name, str(age), email, str(salary), department]
-
     def click_btn_submit(self):
         self.click_button(self.locators.SUBMIT)
 
@@ -181,6 +165,22 @@ class WebTablesPage(BasePage):
 
     def click_edit(self):
         self.click_button(self.locators.EDIT_BUTTON)
+
+    def fill_registration_form(self):
+        info = next(get_person())
+        first_name = info.first_name
+        last_name = info.last_name
+        email = info.email
+        age = info.age
+        salary = info.salary
+        department = info.department
+        self.fill_in_field(self.locators.FIRST_NAME_INPUT, first_name)
+        self.fill_in_field(self.locators.LAST_NAME_INPUT, last_name)
+        self.fill_in_field(self.locators.EMAIL_INPUT, email)
+        self.fill_in_field(self.locators.AGE_INPUT, age)
+        self.fill_in_field(self.locators.SALARY_INPUT, salary)
+        self.fill_in_field(self.locators.DEPARTMENT_INPUT, department)
+        return [first_name, last_name, str(age), email, str(salary), department]
 
     def click_delete(self):
         self.click_button(self.locators.DELETE_BUTTON)

@@ -185,6 +185,15 @@ class TestElements:
             except TimeoutException:
                 pass
 
+        def test_verify_count_row_after_click_edit(self, driver):
+            web_tables_page = WebTablesPage(driver, WEB_TABLES_URL)
+            web_tables_page.open()
+            web_tables_page.click_edit()
+            new_info = web_tables_page.fill_registration_form()
+            web_tables_page.click_btn_submit()
+            result = web_tables_page.get_row_new_added_person()
+            assert new_info in result, "A new person is not in the table"
+
     class TestButtonsPage:
 
         def test_button_double_click(self, driver):

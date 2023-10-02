@@ -100,14 +100,13 @@ class BasePage:
         """Find element (unpacking)"""
         return self.driver.find_element(*locator)
 
-    #
-    # def fill_in_field(self, locator, value):
-    #     """This method fills in a specified field with provided value"""
-    #     input_field = self.element_is_clickable(locator)
-    #     input_field.click()
-    #     input_field.clear()
-    #     input_field.send_keys(value)
-    #     return input_field
+    def fill_in_field(self, locator, key):
+        """This method fills in a specified field with provided value"""
+        input_field = self.element_is_visible(locator)
+        input_field.click()
+        input_field.clear()
+        input_field.send_keys(key)
+        return input_field
 
     def get_text(self, locator):
         return self.element_is_visible(locator, 20).text
