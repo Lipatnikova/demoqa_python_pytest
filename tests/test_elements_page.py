@@ -10,6 +10,7 @@ from generator.generator import random_num
 from locators.elements_page_locators import TextBoxPageLocators
 from locators.elements_page_locators import LinksPageLocators
 from locators.elements_page_locators import BrokenLinksImageLocators
+from selenium.common.exceptions import TimeoutException
 
 
 class TestElements:
@@ -165,6 +166,24 @@ class TestElements:
                     else:
                         assert key in str(i.text.lower().splitlines()), \
                             "The sorting doesn't work correctly"
+
+        def test_verify_count_row_after_click_delete(self, driver):
+            web_tables_page = WebTablesPage(driver, WEB_TABLES_URL)
+            web_tables_page.open()
+            for i in range(1, random_num()):
+                web_tables_page.click_btn_add()
+                web_tables_page.fill_registration_form()
+                web_tables_page.click_btn_submit()
+            count_del_before = web_tables_page.count_delete_btn()
+            try:
+                for i in range(count_del_before):
+                    web_tables_page.click_delete()
+                    count_del_after = web_tables_page.count_delete_btn()
+                    assert count_del_before - 1 == count_del_after, \
+                        "Count of rows after clicking Delete has not changed"
+                    count_del_before -= 1
+            except TimeoutException:
+                pass
 
     class TestButtonsPage:
 

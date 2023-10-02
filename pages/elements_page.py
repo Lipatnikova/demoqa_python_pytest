@@ -179,6 +179,15 @@ class WebTablesPage(BasePage):
     def is_not_visible_no_rows_found(self):
         return self.element_is_not_visible(self.locators.NO_ROWS_FOUND)
 
+    def click_edit(self):
+        self.click_button(self.locators.EDIT_BUTTON)
+
+    def click_delete(self):
+        self.click_button(self.locators.DELETE_BUTTON)
+
+    def count_delete_btn(self):
+        return len(self.elements_are_visible(self.locators.DELETE_BUTTON))
+
 
 class ButtonsPage(BasePage):
     locators = ButtonsPageLocators
@@ -250,7 +259,7 @@ class UploadAndDownload(BasePage):
 
     def download_file(self):
         link = self.get_href(self.locators.DOWNLOAD_BTN)
-        link_b = base64.b64decode(link) # декодированная байтовая строка
+        link_b = base64.b64decode(link)  # декодированная байтовая строка
         path_name_file = rf"../test{random.randint(0, 999)}.jpg"
         with open(path_name_file, 'wb+') as f:
             offset = link_b.find(b'\xff\xd8')   # it's a byte stream python.
