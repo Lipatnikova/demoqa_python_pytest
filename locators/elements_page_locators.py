@@ -51,6 +51,8 @@ class WebTablesPageLocators:
     # update
     EDIT_BUTTON = (By.CSS_SELECTOR, 'span[title="Edit"]')
 
+    SELECT_COUNT_ROWS = (By.CSS_SELECTOR, 'span.select-wrap.-pageSizeOptions > select')
+
 
 class ButtonsPageLocators:
     DOUBLE_CLICK_BTN = (By.CSS_SELECTOR, "button[id='doubleClickBtn']")

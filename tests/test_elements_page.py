@@ -194,6 +194,16 @@ class TestElements:
             result = web_tables_page.get_row_new_added_person()
             assert new_info in result, "A new person is not in the table"
 
+        def test_verify_count_of_rows_in_the_table_after_changing_value_in_select(self, driver):
+            web_tables_page = WebTablesPage(driver, WEB_TABLES_URL)
+            web_tables_page.open()
+            list_rows = [5, 10, 20, 25, 50, 100]
+            for i in range(0, len(list_rows)):
+                web_tables_page.selected_value(i)
+                assert web_tables_page.count_rows_in_the_table() == list_rows[i], \
+                    "The count of rows in the table after changing the value in the select " \
+                    "does not match the selected one"
+
     class TestButtonsPage:
 
         def test_button_double_click(self, driver):

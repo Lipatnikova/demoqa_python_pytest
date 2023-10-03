@@ -11,6 +11,7 @@ from pages.base_page import BasePage
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
     ButtonsPageLocators, LinksPageLocators, BrokenLinksImageLocators, UploadAndDownloadPageLocators, \
     DynamicPropertiesPageLocators, WebTablesPageLocators
+from selenium.webdriver.support.ui import Select
 
 
 class TextBoxPage(BasePage):
@@ -187,6 +188,14 @@ class WebTablesPage(BasePage):
 
     def count_delete_btn(self):
         return len(self.elements_are_visible(self.locators.DELETE_BUTTON))
+
+    def selected_value(self,  index):
+        self.go_to_element(self.element_is_visible(self.locators.SELECT_COUNT_ROWS))
+        select = Select(self.find_element(self.locators.SELECT_COUNT_ROWS))
+        select.select_by_index(index)
+
+    def count_rows_in_the_table(self):
+        return len(self.elements_are_visible(self.locators.FULL_PEOPLE_LIST))
 
 
 class ButtonsPage(BasePage):
