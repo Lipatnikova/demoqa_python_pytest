@@ -1,10 +1,18 @@
-from locators.alerts_frame_windows_page_locators import AlertsFrameWindowsPageLocators as locators
+from locators.alerts_frame_windows_page_locators import BrowserWindowsPageLocators as locators
 from pages.base_page import BasePage
 
 
-class AlertsFrameWindowsPage(BasePage):
+class BrowserWindowsPage(BasePage):
 
-    class BrowserWindowsPage:
+    def click_btn_new_tab(self):
+        self.click_button(locators.NEW_TAB_BTN)
 
-        def test(self):
-            pass
+    def click_btn_new_window(self):
+        self.click_button(locators.NEW_WINDOW_BTN)
+
+    def click_btn_new_window_msg(self):
+        self.click_button(locators.NEW_WINDOW_MESSAGE_BTN)
+
+    def get_link_in_the_new_tab(self):
+        self.switch_to_the_second_window()
+        return self.get_actual_url_of_current_page()
