@@ -5,6 +5,7 @@ class BrowserWindowsPageLocators:
     NEW_TAB_BTN = (By.CSS_SELECTOR, "button[id='tabButton']")
     NEW_WINDOW_BTN = (By.CSS_SELECTOR, "button[id='windowButton']")
     NEW_WINDOW_MESSAGE_BTN = (By.CSS_SELECTOR, "button[id='messageWindowButton']")
+    BTNS_FOR_CLICK = [NEW_TAB_BTN, NEW_WINDOW_BTN, NEW_WINDOW_MESSAGE_BTN]
     # SAMPLE_PAGE = (By.CSS_SELECTOR, "h1[id='sampleHeading']")
     # NEW_WINDOW_PAGE = (By.TAG_NAME, "body")
 

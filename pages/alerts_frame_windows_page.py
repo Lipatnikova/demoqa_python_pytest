@@ -16,3 +16,23 @@ class BrowserWindowsPage(BasePage):
     def get_link_in_the_new_tab(self):
         self.switch_to_the_second_window()
         return self.get_actual_url_of_current_page()
+
+    def get_count_windows(self):
+        handles = self.driver.window_handles
+        return len(handles)
+
+    def show_all_opened_windows(self):
+        """
+        Shows all opened windows
+        """
+        handles = self.driver.window_handles
+        size = len(handles)
+
+        if size == 1:
+            print('Additional windows not found. Only one active browser window found.')
+        else:
+            print('Number of detected windows: ', size)
+
+            for x in range(size):
+                self.driver.switch_to.window(handles[x])
+                print(self.driver.title)
