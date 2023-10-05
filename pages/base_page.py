@@ -172,8 +172,5 @@ class BasePage:
             return "Timeout"
         return True
 
-    def switch_to_the_first_window(self):
-        self.driver.switch_to.window(self.driver.window_handles[0])
-
-    def switch_to_the_second_window(self):
-        self.driver.switch_to.window(self.driver.window_handles[1])
+    def switch_to_the_x_window(self, x):
+        self.driver.switch_to.window(self.driver.window_handles[x])
