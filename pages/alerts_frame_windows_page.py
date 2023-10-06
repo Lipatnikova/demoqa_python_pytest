@@ -1,8 +1,7 @@
-import time
-
 from generator.generator import get_person
 from locators.alerts_frame_windows_page_locators import BrowserWindowsPageLocators as LocWin
 from locators.alerts_frame_windows_page_locators import AlertsPageLocators as LocAlert
+from locators.alerts_frame_windows_page_locators import FramePageLocators as LocFrame
 from pages.base_page import BasePage
 
 
@@ -72,3 +71,33 @@ class AlertsPage(BasePage):
 
     def get_text_result_after_click_prompt_in_alert(self):
         return self.get_text(LocAlert.PROMPT_TEXT)
+
+
+class FramesPage(BasePage):
+
+    def first_frame_is_present(self):
+        return self.element_is_present(LocFrame.BIG_FRAME)
+
+    def second_frame_is_present(self):
+        return self.element_is_present(LocFrame.SMALL_FRAME)
+
+    def get_count_frames_on_the_page(self):
+        return len(self.elements_are_present(LocFrame.FRAMES))
+
+    def get_frame_info(self, item):
+        if item == "small":
+            frame = self.first_frame_is_present()
+            width = frame.get_attribute('width')
+            height = frame.get_attribute('height')
+            self.driver.switch_to.frame(frame)
+            text = self.get_text(LocFrame.FRAME_PAGE)
+            self.driver.switch_to.default_content()
+            return [width, height, text]
+        if item == "big":
+            frame = self.first_frame_is_present()
+            width = frame.get_attribute('width')
+            height = frame.get_attribute('height')
+            self.driver.switch_to.frame(frame)
+            text = self.get_text(LocFrame.FRAME_PAGE)
+            self.driver.switch_to.default_content()
+            return [width, height, text]

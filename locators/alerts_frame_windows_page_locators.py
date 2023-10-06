@@ -19,6 +19,7 @@ class AlertsPageLocators:
 
 
 class FramePageLocators:
+    FRAMES = (By.TAG_NAME, "iframe")
     BIG_FRAME = (By.CSS_SELECTOR, "iframe[id='frame1']")
     SMALL_FRAME = (By.CSS_SELECTOR, "iframe[id='frame2']")
     FRAME_PAGE = (By.CSS_SELECTOR, "h1[id='sampleHeading']")

@@ -1,9 +1,9 @@
 import pytest
 
-from data.data import AlertsData
-from data.data_urls import BROWSER_WINDOWS_URL, ALERTS_URL
+from data.data import AlertsData, FramesData
+from data.data_urls import BROWSER_WINDOWS_URL, ALERTS_URL, FRAMES_URL
 from generator.generator import random_num
-from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage
+from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage, FramesPage
 from locators.alerts_frame_windows_page_locators import BrowserWindowsPageLocators
 
 
@@ -84,7 +84,25 @@ class TestAlertsPage:
         alert_page.open()
         alert_page.click_btn_prompt_box_will_appear()
         alert_page.alert_is_present()
-        text_btn_alert = alert_page.prompt_alert()
+        text_add_to_alert = alert_page.prompt_alert()
         text_result = alert_page.get_text_result_after_click_prompt_in_alert()
-        assert text_btn_alert in text_result, \
+        assert text_add_to_alert in text_result, \
             "The text result after click button doesn't contain expected text"
+
+
+class TestFramesPage:
+
+    def test_count_frames_on_the_page(self, driver):
+        frames_page = FramesPage(driver, FRAMES_URL)
+        frames_page.open()
+        frames_page.first_frame_is_present()
+        count_frames = frames_page.get_count_frames_on_the_page()
+        assert count_frames == 2, "Incorrect count of frames on the page"
+
+    @pytest.mark.parametrize("item", FramesData.size_frame)
+    def test_verify_frames_options(self, driver, item):
+        frame_page = FramesPage(driver, FRAMES_URL)
+        frame_page.open()
+        result = frame_page.get_frame_info(item)
+        assert result == ['500px', '350px', 'This is a sample page'] or \
+               result == ['100px', '100px', 'This is a sample page'], "The frame does not exist"

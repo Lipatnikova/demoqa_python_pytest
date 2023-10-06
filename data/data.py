@@ -30,3 +30,7 @@ class LinksAndUrls:
 
 class AlertsData:
     btn_in_alert = ["accept", "dismiss"]
+
+
+class FramesData:
+    size_frame = ["small", "big"]
