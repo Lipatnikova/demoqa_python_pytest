@@ -12,9 +12,9 @@ class BrowserWindowsPageLocators:
 class AlertsPageLocators:
     BUTTON_ALERT = (By.CSS_SELECTOR, "button[id='alertButton']")
     BUTTON_ALERT_AFTER_5_SECOND = (By.CSS_SELECTOR, "button[id='timerAlertButton']")
-    CONFIRM_BOX = (By.CSS_SELECTOR, "button[id='confirmButton']")
+    BUTTON_CONFIRM_BOX = (By.CSS_SELECTOR, "button[id='confirmButton']")
     CONFIRM_BOX_TEXT = (By.CSS_SELECTOR, "span[id='confirmResult']")
-    PROMPT = (By.CSS_SELECTOR, "button[id='promtButton']")
+    BUTTON_PROMPT = (By.CSS_SELECTOR, "button[id='promtButton']")
     PROMPT_TEXT = (By.CSS_SELECTOR, "span[id='promptResult']")
 
 

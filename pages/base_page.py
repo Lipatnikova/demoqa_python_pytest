@@ -174,3 +174,6 @@ class BasePage:
 
     def switch_to_the_x_window(self, x):
         self.driver.switch_to.window(self.driver.window_handles[x])
+
+    def alert_is_present(self):
+        return wait(self.driver, 10).until(EC.alert_is_present())

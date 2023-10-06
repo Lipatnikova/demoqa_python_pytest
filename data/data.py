@@ -26,3 +26,7 @@ class LinksAndUrls:
                       ((By.CSS_SELECTOR, "a[id='forbidden']"), "https://demoqa.com/forbidden"),
                       ((By.CSS_SELECTOR, "a[id='invalid-url']"), "https://demoqa.com/invalid-url")
                       ]
+
+
+class AlertsData:
+    btn_in_alert = ["accept", "dismiss"]

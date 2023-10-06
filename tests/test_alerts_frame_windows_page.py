@@ -1,8 +1,9 @@
 import pytest
 
-from data.data_urls import BROWSER_WINDOWS_URL
+from data.data import AlertsData
+from data.data_urls import BROWSER_WINDOWS_URL, ALERTS_URL
 from generator.generator import random_num
-from pages.alerts_frame_windows_page import BrowserWindowsPage
+from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage
 from locators.alerts_frame_windows_page_locators import BrowserWindowsPageLocators
 
 
@@ -47,3 +48,43 @@ class TestBrowserWindowsPage:
         browser_win.switch_to_the_x_window(1)
         text = browser_win.get_heading_text_in_new_window()
         assert text == "This is a sample page", "The text in the new tab is incorrect"
+
+
+class TestAlertsPage:
+
+    def test_verify_text_in_alert(self, driver):
+        alert_page = AlertsPage(driver, ALERTS_URL)
+        alert_page.open()
+        alert_page.click_btn_see_alert()
+        text = alert_page.get_alert_text()
+        assert text == "You clicked a button", \
+            "The alert doesn't contain expected text"
+
+    def test_verify_text_in_alert_after_five_seconds(self, driver):
+        alert_page = AlertsPage(driver, ALERTS_URL)
+        alert_page.open()
+        alert_page.click_btn_see_alert_will_appear_after_five_seconds()
+        alert_page.alert_is_present()
+        text = alert_page.get_alert_text()
+        assert text == "This alert appeared after 5 seconds", \
+            "The alert doesn't contain expected text"
+
+    @pytest.mark.parametrize('item', AlertsData.btn_in_alert)
+    def test_verify_text_in_alert_confirm_box_will_appear(self, driver, item):
+        alert_page = AlertsPage(driver, ALERTS_URL)
+        alert_page.open()
+        alert_page.click_btn_confirm_box_will_appear()
+        text_btn_alert = alert_page.complex_alert(item)
+        text_result = alert_page.get_text_result_after_click_confirm_in_alert()
+        assert text_btn_alert in text_result, \
+            "The text result after click button doesn't contain expected text"
+
+    def test_verify_text_in_alert_prompt_box_will_appear(self, driver):
+        alert_page = AlertsPage(driver, ALERTS_URL)
+        alert_page.open()
+        alert_page.click_btn_prompt_box_will_appear()
+        alert_page.alert_is_present()
+        text_btn_alert = alert_page.prompt_alert()
+        text_result = alert_page.get_text_result_after_click_prompt_in_alert()
+        assert text_btn_alert in text_result, \
+            "The text result after click button doesn't contain expected text"
