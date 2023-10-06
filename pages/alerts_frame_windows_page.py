@@ -2,6 +2,7 @@ from generator.generator import get_person
 from locators.alerts_frame_windows_page_locators import BrowserWindowsPageLocators as LocWin
 from locators.alerts_frame_windows_page_locators import AlertsPageLocators as LocAlert
 from locators.alerts_frame_windows_page_locators import FramePageLocators as LocFrame
+from locators.alerts_frame_windows_page_locators import NestedFramePageLocators as LocNestedFrame
 from pages.base_page import BasePage
 
 
@@ -101,3 +102,18 @@ class FramesPage(BasePage):
             text = self.get_text(LocFrame.FRAME_PAGE)
             self.driver.switch_to.default_content()
             return [width, height, text]
+
+
+class NestedFramesPage(BasePage):
+
+    def nested_frame_page_text_first_frame(self):
+        first_frame = self.element_is_present(LocNestedFrame.FIRST_FRAME)
+        self.driver.switch_to.frame(first_frame)
+        text_first_frame = self.get_text(LocNestedFrame.FIRST_FRAME_TEXT)
+        return text_first_frame
+
+    def nested_frame_page_text_second_frame(self):
+        second_frame = self.element_is_present(LocNestedFrame.SECOND_FRAME)
+        self.driver.switch_to.frame(second_frame)
+        text_second_frame = self.get_text(LocNestedFrame.SECOND_FRAME_TEXT)
+        return text_second_frame

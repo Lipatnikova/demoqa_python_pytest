@@ -1,9 +1,9 @@
 import pytest
 
 from data.data import AlertsData, FramesData
-from data.data_urls import BROWSER_WINDOWS_URL, ALERTS_URL, FRAMES_URL
+from data.data_urls import BROWSER_WINDOWS_URL, ALERTS_URL, FRAMES_URL, NESTED_FRAMES_URL
 from generator.generator import random_num
-from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage, FramesPage
+from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage, FramesPage, NestedFramesPage
 from locators.alerts_frame_windows_page_locators import BrowserWindowsPageLocators
 
 
@@ -106,3 +106,13 @@ class TestFramesPage:
         result = frame_page.get_frame_info(item)
         assert result == ['500px', '350px', 'This is a sample page'] or \
                result == ['100px', '100px', 'This is a sample page'], "The frame does not exist"
+
+
+class TestNestedFramesPage:
+    def test_nested_frames(self, driver):
+        nested_frame_page = NestedFramesPage(driver, NESTED_FRAMES_URL)
+        nested_frame_page.open()
+        text_first_frame = nested_frame_page.nested_frame_page_text_first_frame()
+        text_second_frame = nested_frame_page.nested_frame_page_text_second_frame()
+        assert text_first_frame == "Parent frame", "Parent frame doesn't exist or does not contain the expected text"
+        assert text_second_frame == "Child Iframe", "Child frame doesn't exist or does not contain the expected text"

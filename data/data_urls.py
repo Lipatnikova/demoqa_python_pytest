@@ -18,7 +18,7 @@ ALERTS_FRAME_WINDOWS_URL = "https://demoqa.com/alertsWindows"
 BROWSER_WINDOWS_URL = "https://demoqa.com/browser-windows"
 ALERTS_URL = "https://demoqa.com/alerts"
 FRAMES_URL = "https://demoqa.com/frames"
-NESTEDFRAMES_URL = "https://demoqa.com/nestedframes"
+NESTED_FRAMES_URL = "https://demoqa.com/nestedframes"
 MODAL_DIALOGS_URL = "https://demoqa.com/modal-dialogs"
 
 WIDGETS_URL = "https://demoqa.com/widgets"
