@@ -1,9 +1,10 @@
 import pytest
 
-from data.data import AlertsData, FramesData
-from data.data_urls import BROWSER_WINDOWS_URL, ALERTS_URL, FRAMES_URL, NESTED_FRAMES_URL
+from data.data import AlertsData, FramesData, ModalData
+from data.data_urls import BROWSER_WINDOWS_URL, ALERTS_URL, FRAMES_URL, NESTED_FRAMES_URL, MODAL_DIALOGS_URL
 from generator.generator import random_num
-from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage, FramesPage, NestedFramesPage
+from pages.alerts_frame_windows_page import BrowserWindowsPage, AlertsPage, FramesPage, NestedFramesPage, \
+    ModalDialogsPage
 from locators.alerts_frame_windows_page_locators import BrowserWindowsPageLocators
 
 
@@ -116,3 +117,51 @@ class TestNestedFramesPage:
         text_second_frame = nested_frame_page.nested_frame_page_text_second_frame()
         assert text_first_frame == "Parent frame", "Parent frame doesn't exist or does not contain the expected text"
         assert text_second_frame == "Child Iframe", "Child frame doesn't exist or does not contain the expected text"
+
+
+class TestModalDialogsPage:
+
+    def test_verify_button_small_modal_text(self, driver):
+        modal_page = ModalDialogsPage(driver, MODAL_DIALOGS_URL)
+        modal_page.open()
+        text = modal_page.get_text_small_modal_btn()
+        assert text == "Small modal", "The button hasn't expected text"
+
+    def test_verify_button_large_modal_text(self, driver):
+        modal_page = ModalDialogsPage(driver, MODAL_DIALOGS_URL)
+        modal_page.open()
+        text = modal_page.get_text_large_modal_btn()
+        assert text == "Large modal", "The button hasn't expected text"
+
+    def test_verify_content_small_modal(self, driver):
+        modal_page = ModalDialogsPage(driver, MODAL_DIALOGS_URL)
+        modal_page.open()
+        modal_page.click_btn_small_modal()
+        header, title = modal_page.get_content_from_modal()
+        assert header == "Small Modal", "Modal hasn't header expected text"
+        assert title == "This is a small modal. It has very less content", \
+            "The Modal hasn't expected text"
+
+    def test_verify_content_large_modal(self, driver):
+        modal_page = ModalDialogsPage(driver, MODAL_DIALOGS_URL)
+        modal_page.open()
+        modal_page.click_btn_large_modal()
+        header, title = modal_page.get_content_from_modal()
+        assert header == "Large Modal", "Modal hasn't header expected text"
+        assert len(title) > 100, "Modal hasn't title text"
+
+    @pytest.mark.parametrize('close', ModalData.close_modal)
+    def test_check_close_small_modal_different_ways(self, driver, close):
+        modal_page = ModalDialogsPage(driver, MODAL_DIALOGS_URL)
+        modal_page.open()
+        modal_page.click_btn_small_modal()
+        button = modal_page.close_small_modal_different_ways(close)
+        assert close in button, f"Didn't click on the {close}"
+
+    @pytest.mark.parametrize('close', ModalData.close_modal)
+    def test_check_close_large_modal_different_ways(self, driver, close):
+        modal_page = ModalDialogsPage(driver, MODAL_DIALOGS_URL)
+        modal_page.open()
+        modal_page.click_btn_small_modal()
+        button = modal_page.close_large_modal_different_ways(close)
+        assert close in button, f"Didn't click on the {close}"

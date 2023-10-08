@@ -3,7 +3,9 @@ from locators.alerts_frame_windows_page_locators import BrowserWindowsPageLocato
 from locators.alerts_frame_windows_page_locators import AlertsPageLocators as LocAlert
 from locators.alerts_frame_windows_page_locators import FramePageLocators as LocFrame
 from locators.alerts_frame_windows_page_locators import NestedFramePageLocators as LocNestedFrame
+from locators.alerts_frame_windows_page_locators import ModalDialogsPageLocators as LocModal
 from pages.base_page import BasePage
+from selenium.webdriver import Keys
 
 
 class BrowserWindowsPage(BasePage):
@@ -117,3 +119,55 @@ class NestedFramesPage(BasePage):
         self.driver.switch_to.frame(second_frame)
         text_second_frame = self.get_text(LocNestedFrame.SECOND_FRAME_TEXT)
         return text_second_frame
+
+
+class ModalDialogsPage(BasePage):
+
+    def get_text_small_modal_btn(self):
+        return self.get_text(LocModal.SMALL_MODAL_BTN)
+
+    def get_text_large_modal_btn(self):
+        return self.get_text(LocModal.LARGE_MODAL_BTN)
+
+    def click_btn_small_modal(self):
+        self.click_button(LocModal.SMALL_MODAL_BTN)
+
+    def click_btn_large_modal(self):
+        self.click_button(LocModal.LARGE_MODAL_BTN)
+
+    def get_content_from_modal(self):
+        header_text = self.get_text(LocModal.MODAL_HEADER)
+        title_text = self.get_text(LocModal.MODAL_TITLE)
+        return header_text, title_text
+
+    def close_small_modal_different_ways(self, close):
+        modal = self.element_is_visible(LocModal.SMALL_MODAL_BTN)
+        if close == "Esc":
+            modal.send_keys(Keys.ESCAPE)
+            return "Click on Esc"
+        elif close == "button":
+            self.click_button(LocModal.CLOSE_BUTTON_SMALL_MODAL)
+            return "Click on button"
+        elif close == "cross":
+            self.click_button(LocModal.MODAL_CLOSE_CROSS)
+            return "Click on cross"
+        elif close == "Tab and Enter":
+            modal.send_keys(Keys.TAB)
+            modal.send_keys(Keys.ENTER)
+            return "Click Tab and Enter"
+
+    def close_large_modal_different_ways(self, close):
+        modal = self.element_is_visible(LocModal.LARGE_MODAL_BTN)
+        if close == "Esc":
+            modal.send_keys(Keys.ESCAPE)
+            return "Click on Esc"
+        elif close == "button":
+            self.click_button(LocModal.CLOSE_BUTTON_LARGE_MODAL)
+            return "Click on button"
+        elif close == "cross":
+            self.click_button(LocModal.MODAL_CLOSE_CROSS)
+            return "Click on cross"
+        elif close == "Tab and Enter":
+            modal.send_keys(Keys.TAB)
+            modal.send_keys(Keys.ENTER)
+            return "Click Tab and Enter"

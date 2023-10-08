@@ -34,3 +34,7 @@ class AlertsData:
 
 class FramesData:
     size_frame = ["small", "big"]
+
+
+class ModalData:
+    close_modal = ["Esc", "button", "cross", "Tab and Enter"]
