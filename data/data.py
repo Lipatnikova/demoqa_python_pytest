@@ -38,3 +38,7 @@ class FramesData:
 
 class ModalData:
     close_modal = ["Esc", "button", "cross", "Tab and Enter"]
+
+
+class AccordianData:
+    title_text = ["what", "where", "why"]

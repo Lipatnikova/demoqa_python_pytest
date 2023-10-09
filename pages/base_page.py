@@ -177,3 +177,6 @@ class BasePage:
 
     def alert_is_present(self):
         return wait(self.driver, 10).until(EC.alert_is_present())
+
+    def get_attribute_class(self, locator):
+        return self.element_is_present(locator).get_attribute('class')
