@@ -1,7 +1,7 @@
 from faker import Faker
 import random
 import string
-from data.data import Person
+from data.data import Person, Color
 
 faker_ru = Faker('ru_RU')
 faker_en = Faker('En')
@@ -30,8 +30,17 @@ def generated_file_txt():
         f.close()
     return f.name, path
 
+
 def random_num():
     return random.randint(1, 10)
 
+
 def random_letter():
     return chr(random.randint(ord('a'), ord('z')))
+
+
+def generator_color():
+    yield Color(
+        color_name=["Red", "Blue", "Yellow", "Purple", "White", "Violet",
+                    "Indigo", "Black", "Magenta", "Aqua", "Green"]
+    )

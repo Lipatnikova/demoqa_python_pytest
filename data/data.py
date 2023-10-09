@@ -16,6 +16,11 @@ class Person:
     mobile: str = None
 
 
+@dataclass
+class Color:
+    color_name: list = None
+
+
 class LinksAndUrls:
     # Following links will send an api call
     LINKS_AND_URLS = [((By.CSS_SELECTOR, "a[id='created']"), "https://demoqa.com/created"),
