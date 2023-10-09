@@ -21,6 +21,14 @@ class Color:
     color_name: list = None
 
 
+@dataclass
+class Date:
+    day: str = None
+    month: str = None
+    year: str = None
+    time: str = None
+
+
 class LinksAndUrls:
     # Following links will send an api call
     LINKS_AND_URLS = [((By.CSS_SELECTOR, "a[id='created']"), "https://demoqa.com/created"),
