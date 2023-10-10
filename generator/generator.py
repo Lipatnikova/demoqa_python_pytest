@@ -60,3 +60,8 @@ def generator_date():
         day=faker_en.day_of_month(),
         time=get_time()
     )
+
+
+def random_num_up_to_one_hundred():
+    x = random.randint(0, 100)
+    return x

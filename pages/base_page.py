@@ -180,3 +180,15 @@ class BasePage:
 
     def get_attribute_class(self, locator):
         return self.element_is_present(locator).get_attribute('class')
+
+    def get_attribute_value(self, locator):
+        return self.element_is_visible(locator).get_attribute('value')
+
+    def action_drag_and_drop_by_offset(self, elem, x, y):
+        """
+        Holds down the left mouse button on the source element,
+        then moves to the target offset and releases the mouse button.
+        """
+        action = ActionChains(self.driver)
+        action.drag_and_drop_by_offset(elem, x, y)
+        action.perform()

@@ -1,7 +1,7 @@
 import pytest
 from data.data import AccordianData
-from data.data_urls import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL
-from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage
+from data.data_urls import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL
+from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage
 
 
 class TestWidgetsPage:
@@ -84,3 +84,30 @@ class TestWidgetsPage:
             date_changes = date_page.get_date_and_time()
             date_after = date_page.get_date_after_changes()
             assert date_after == date_changes, "Date has not changed"
+
+    class TestSliderPage:
+
+        def test_verify_slider_change_value(self, driver):
+            slider_page = SliderPage(driver, SLIDER_URL)
+            slider_page.open()
+            value_before = slider_page.get_slider_value()
+            slider_page.change_value_slider()
+            value_after = slider_page.get_slider_value()
+            assert value_before != value_after, "The value in the Slider has not changed"
+
+        def test_verify_slider_and_input_values_before_changes(self, driver):
+            slider_page = SliderPage(driver, SLIDER_URL)
+            slider_page.open()
+            value_slider_before = slider_page.get_slider_value()
+            value_input_before = slider_page.get_input_value()
+            assert value_slider_before == value_input_before, \
+                "The value in the slider and the input do not match"
+
+        def test_verify_slider_and_input_values_after_changes(self, driver):
+            slider_page = SliderPage(driver, SLIDER_URL)
+            slider_page.open()
+            slider_page.change_value_slider()
+            value_slider_after = slider_page.get_slider_value()
+            value_input_after = slider_page.get_input_value()
+            assert value_slider_after == value_input_after, \
+                "The value in the slider and the input do not match"

@@ -1,10 +1,11 @@
 import random
 import time
-from generator.generator import generator_color, generator_date
+from generator.generator import generator_color, generator_date, random_num_up_to_one_hundred
 from pages.base_page import BasePage
 from locators.widgets_page_locators import AccordianPageLocators as Accordian
 from locators.widgets_page_locators import AutoCompletePageLocators as AutoComplete
 from locators.widgets_page_locators import DatePickerPageLocators as DatePicker
+from locators.widgets_page_locators import SliderPageLocators as Slider
 from selenium.webdriver import Keys
 from selenium.webdriver.support.select import Select
 
@@ -222,3 +223,18 @@ class DatePickerPage(BasePage):
         time.sleep(1)
         date_after = self.element_is_present(DatePicker.DATE_AND_TIME_INPUT).get_attribute('value')
         return date_after
+
+
+class SliderPage(BasePage):
+
+    def get_slider_value(self):
+        return self.get_attribute_value(Slider.SLIDER_INPUT)
+
+    def change_value_slider(self):
+        slider = self.element_is_visible(Slider.SLIDER_INPUT)
+        x = random_num_up_to_one_hundred()
+        self.action_drag_and_drop_by_offset(slider, x, 0)
+        return x
+
+    def get_input_value(self):
+        return self.get_attribute_value(Slider.SLIDER_INPUT)
