@@ -1,7 +1,8 @@
 import pytest
 from data.data import AccordianData
-from data.data_urls import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL
-from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage
+from data.data_urls import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL, PROGRESS_BAR_URL
+from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage
+from selenium.common.exceptions import TimeoutException
 
 
 class TestWidgetsPage:
@@ -111,3 +112,37 @@ class TestWidgetsPage:
             value_input_after = slider_page.get_input_value()
             assert value_slider_after == value_input_after, \
                 "The value in the slider and the input do not match"
+
+    class TestProgressBarPage:
+
+        def test_verify_progress_bar_after_click_btn(self, driver):
+            progress_bar_page = ProgressBarPage(driver, PROGRESS_BAR_URL)
+            progress_bar_page.open()
+            value_before = progress_bar_page.get_attribute_aria_valuenow_in_progress_bar()
+            progress_bar_page.click_btn_start()
+            progress_bar_page.random_time_sleep()
+            try:
+                progress_bar_page.click_btn_start()
+            except TimeoutException:
+                pass
+            value_after = progress_bar_page.get_attribute_aria_valuenow_in_progress_bar()
+            assert value_after != value_before, \
+                "The value in the Progress Bar does not change"
+
+        def test_verify_button_text_before_click_and_after_click(self, driver):
+            progress_bar_page = ProgressBarPage(driver, PROGRESS_BAR_URL)
+            progress_bar_page.open()
+            btn_text_before = progress_bar_page.get_text_btn()
+            progress_bar_page.click_btn_start()
+            progress_bar_page.random_time_sleep()
+            progress_bar_page.click_btn_start()
+            valuenow = progress_bar_page.get_attribute_aria_valuenow_in_progress_bar()
+            if valuenow < 100:
+                progress_bar_page.click_btn_start()
+                btn_text_after = progress_bar_page.get_text_btn()
+                assert btn_text_before == 'Start' and btn_text_after == 'Stop', \
+                    "The button Start/Stop/Reset contains incorrect text"
+            if valuenow == 100:
+                btn_text_after = progress_bar_page.get_text_btn()
+                assert btn_text_before != btn_text_after and btn_text_after == 'Reset', \
+                    "The button Start/Stop/Reset contains incorrect text"

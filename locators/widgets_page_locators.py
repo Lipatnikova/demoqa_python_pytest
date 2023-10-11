@@ -43,7 +43,8 @@ class SliderPageLocators:
 
 
 class ProgressBarPageLocators:
-    BUTTON_PROGRESS_BAR = (By.CSS_SELECTOR, "button[id='startStopButton']")
+    BUTTON_START_STOP = (By.CSS_SELECTOR, "button[id='startStopButton']")
+    BUTTON_RESET = (By.CSS_SELECTOR, "button[id='resetButton']")
     VALUE_PROGRESS_BAR = (By.CSS_SELECTOR, "div[class='progress-bar bg-info']")
 
 

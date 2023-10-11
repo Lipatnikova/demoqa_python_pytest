@@ -1,11 +1,12 @@
 import random
 import time
-from generator.generator import generator_color, generator_date, random_num_up_to_one_hundred
+from generator.generator import generator_color, generator_date, random_num_up_to_one_hundred, random_num
 from pages.base_page import BasePage
 from locators.widgets_page_locators import AccordianPageLocators as Accordian
 from locators.widgets_page_locators import AutoCompletePageLocators as AutoComplete
 from locators.widgets_page_locators import DatePickerPageLocators as DatePicker
 from locators.widgets_page_locators import SliderPageLocators as Slider
+from locators.widgets_page_locators import ProgressBarPageLocators as ProgressBar
 from selenium.webdriver import Keys
 from selenium.webdriver.support.select import Select
 
@@ -238,3 +239,24 @@ class SliderPage(BasePage):
 
     def get_input_value(self):
         return self.get_attribute_value(Slider.SLIDER_INPUT)
+
+
+class ProgressBarPage(BasePage):
+
+    def click_btn_start(self):
+        self.click_button(ProgressBar.BUTTON_START_STOP)
+
+    def get_text_btn(self):
+        text_btn = self.get_text(ProgressBar.BUTTON_START_STOP)
+        # if self.element_is_visible(ProgressBar.BUTTON_RESET):
+        #     text_btn = self.get_text(ProgressBar.BUTTON_RESET)
+        return text_btn
+
+    def click_btn_reset(self):
+        self.click_button(ProgressBar.BUTTON_RESET)
+
+    def get_attribute_aria_valuenow_in_progress_bar(self):
+        return int(self.get_attribute_aria_valuenow(ProgressBar.VALUE_PROGRESS_BAR))
+
+    def random_time_sleep(self):
+        time.sleep(random_num())

@@ -192,3 +192,6 @@ class BasePage:
         action = ActionChains(self.driver)
         action.drag_and_drop_by_offset(elem, x, y)
         action.perform()
+
+    def get_attribute_aria_valuenow(self, locator):
+        return self.element_is_present(locator).get_attribute('aria-valuenow')
