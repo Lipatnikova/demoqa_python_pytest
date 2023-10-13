@@ -7,6 +7,7 @@ from locators.widgets_page_locators import AutoCompletePageLocators as AutoCompl
 from locators.widgets_page_locators import DatePickerPageLocators as DatePicker
 from locators.widgets_page_locators import SliderPageLocators as Slider
 from locators.widgets_page_locators import ProgressBarPageLocators as ProgressBar
+from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.webdriver import Keys
 from selenium.webdriver.support.select import Select
 
@@ -260,3 +261,15 @@ class ProgressBarPage(BasePage):
 
     def random_time_sleep(self):
         time.sleep(random_num())
+
+
+class TabsPage(BasePage):
+
+    def click_tab(self, locator):
+        try:
+            self.click_button(locator)
+        except ElementClickInterceptedException:
+            print('\n', 'Tab with locator:', locator, 'is not clickable')
+
+    def get_text_in_tabs(self, locator):
+        return self.get_text(locator)

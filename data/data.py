@@ -1,3 +1,4 @@
+import pytest
 from dataclasses import dataclass
 from selenium.webdriver.common.by import By
 
@@ -55,3 +56,11 @@ class ModalData:
 
 class AccordianData:
     title_text = ["what", "where", "why"]
+
+
+class TabData:
+    TABS = [((By.CSS_SELECTOR, "a[id='demo-tab-what']"), (By.CSS_SELECTOR, "#demo-tabpane-what > p")),
+            ((By.CSS_SELECTOR, "a[id='demo-tab-origin']"), (By.CSS_SELECTOR, "#demo-tabpane-origin > p.mt-3")),
+            ((By.CSS_SELECTOR, "a[id='demo-tab-use']"), (By.CSS_SELECTOR, "#demo-tabpane-use > p.mt-3")),
+            (pytest.param((By.CSS_SELECTOR, "a[id='demo-tab-more']"),
+                          (By.CSS_SELECTOR, "#demo-tabpane-more > p.mt-3"), marks=pytest.mark.xfail))]

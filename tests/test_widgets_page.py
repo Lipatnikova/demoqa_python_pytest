@@ -1,7 +1,7 @@
 import pytest
-from data.data import AccordianData
-from data.data_urls import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL, PROGRESS_BAR_URL
-from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage
+from data.data import AccordianData, TabData
+from data.data_urls import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL, PROGRESS_BAR_URL, TABS_URL
+from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage
 from selenium.common.exceptions import TimeoutException
 
 
@@ -146,3 +146,13 @@ class TestWidgetsPage:
                 btn_text_after = progress_bar_page.get_text_btn()
                 assert btn_text_before != btn_text_after and btn_text_after == 'Reset', \
                     "The button Start/Stop/Reset contains incorrect text"
+
+    class TestTabsPage:
+
+        @pytest.mark.parametrize('tab, text_tab', TabData.TABS)
+        def test_verify_text_in_tabs_after_click_is_visible(self, driver, tab, text_tab):
+            tabs_page = TabsPage(driver, TABS_URL)
+            tabs_page.open()
+            tabs_page.click_tab(tab)
+            text = tabs_page.get_text_in_tabs(text_tab)
+            assert len(text) != 0, "Text in the Tab is not displayed or is incorrect"
