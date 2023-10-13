@@ -7,6 +7,7 @@ from locators.widgets_page_locators import AutoCompletePageLocators as AutoCompl
 from locators.widgets_page_locators import DatePickerPageLocators as DatePicker
 from locators.widgets_page_locators import SliderPageLocators as Slider
 from locators.widgets_page_locators import ProgressBarPageLocators as ProgressBar
+from locators.widgets_page_locators import ToolTipsPageLocators as ToolTip
 from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.webdriver import Keys
 from selenium.webdriver.support.select import Select
@@ -273,3 +274,13 @@ class TabsPage(BasePage):
 
     def get_text_in_tabs(self, locator):
         return self.get_text(locator)
+
+
+class ToolTipsPage(BasePage):
+
+    def hover_element(self, locator):
+        elem = self.element_is_visible(locator, 15)
+        self.action_move_to_element(elem)
+
+    def get_text_after_hover_tool_tips(self):
+        return self.get_text(ToolTip.AFTER_HOVER_TEXT)

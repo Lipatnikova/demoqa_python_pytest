@@ -1,7 +1,12 @@
+import time
+
 import pytest
 from data.data import AccordianData, TabData
-from data.data_urls import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL, PROGRESS_BAR_URL, TABS_URL
-from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage
+from data.data_urls import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL, PROGRESS_BAR_URL, TABS_URL, \
+    TOOL_TIPS_URL
+from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage, \
+    ToolTipsPage
+from locators.widgets_page_locators import ToolTipsPageLocators as ToolTips
 from selenium.common.exceptions import TimeoutException
 
 
@@ -156,3 +161,13 @@ class TestWidgetsPage:
             tabs_page.click_tab(tab)
             text = tabs_page.get_text_in_tabs(text_tab)
             assert len(text) != 0, "Text in the Tab is not displayed or is incorrect"
+
+    class TestToolTips:
+        @pytest.mark.parametrize("item", ToolTips.ALL_LOCATORS)
+        def test_verify_tool_tips(self, driver, item):
+            tool_tips_page = ToolTipsPage(driver, TOOL_TIPS_URL)
+            tool_tips_page.open()
+            tool_tips_page.hover_element(item)
+            text = tool_tips_page.get_text_after_hover_tool_tips()
+            assert "You hovered over the" in text, "After hover by element is not visible Tool Tips message or " \
+                                                   "message does not contain expected text"

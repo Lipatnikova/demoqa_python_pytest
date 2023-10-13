@@ -49,11 +49,11 @@ class ProgressBarPageLocators:
 
 
 class ToolTipsPageLocators:
-    ALL_LOCATORS = {"button": (By.CSS_SELECTOR, "button[id='toolTipButton']"),
-                    "field": (By.CSS_SELECTOR, "input[id='toolTipTextField']"),
-                    "text": (By.XPATH, "//div[@id='texToolTopContainer']/a[contains(text(), 'Contrary')]"),
-                    "number": (By.XPATH, "//div[@id='texToolTopContainer']/a[contains(text(), '1.10.32')]")
-                    }
+    ALL_LOCATORS = [(By.CSS_SELECTOR, "button[id='toolTipButton']"),
+                    (By.CSS_SELECTOR, "input[id='toolTipTextField']"),
+                    (By.XPATH, "//div[@id='texToolTopContainer']/a[contains(text(), 'Contrary')]"),
+                    (By.CSS_SELECTOR, "#texToolTopContainer > a:nth-child(2)")
+                    ]
     AFTER_HOVER_TEXT = (By.CSS_SELECTOR, "div[class='tooltip-inner']")
 
 
