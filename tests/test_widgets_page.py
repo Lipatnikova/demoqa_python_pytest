@@ -1,11 +1,9 @@
-import time
-
 import pytest
 from data.data import AccordianData, TabData
 from data.data_urls import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL, PROGRESS_BAR_URL, TABS_URL, \
-    TOOL_TIPS_URL, MENU_URL
+    TOOL_TIPS_URL, MENU_URL, SELECT_MENU_URL
 from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage, \
-    ToolTipsPage, MenuPage
+    ToolTipsPage, MenuPage, SelectMenuPage
 from locators.widgets_page_locators import ToolTipsPageLocators as ToolTips
 from selenium.common.exceptions import TimeoutException
 
@@ -178,3 +176,32 @@ class TestWidgetsPage:
             menu_page.open()
             menu = menu_page.get_menu()
             assert menu == 8, "Menu titles are incorrect"
+
+    class TestSelectMenuPage:
+        def test_verify_select_value_menu(self, driver):
+            select_page = SelectMenuPage(driver, SELECT_MENU_URL)
+            select_page.open()
+            select_page.click_select_value()
+            input_text = select_page.get_select_value_and_click()
+            output_text = select_page.get_text_select_value()
+            assert input_text == output_text, "Wrong selected value"
+
+        def test_verify_select_one_menu(self, driver):
+            select_page = SelectMenuPage(driver, SELECT_MENU_URL)
+            select_page.open()
+            select_page.click_select_one()
+            input_text = select_page.get_select_one_and_click()
+            output_text = select_page.get_text_select_one()
+            assert input_text == output_text, "Wrong selected value"
+
+        def test_verify_select_old_style(self, driver):
+            select_menu_page = SelectMenuPage(driver, SELECT_MENU_URL)
+            select_menu_page.open()
+            input_text, output_text = select_menu_page.get_selected_option_in_select_old_style()
+            assert input_text == output_text, "Wrong selected value"
+
+        def test_verify_select_multi(self, driver):
+            select_menu_page = SelectMenuPage(driver, SELECT_MENU_URL)
+            select_menu_page.open()
+            input_text, output_text = select_menu_page.get_selected_option_in_select_multi()
+            assert input_text == output_text, "Wrong selected value"

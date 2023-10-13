@@ -9,6 +9,7 @@ from locators.widgets_page_locators import SliderPageLocators as Slider
 from locators.widgets_page_locators import ProgressBarPageLocators as ProgressBar
 from locators.widgets_page_locators import ToolTipsPageLocators as ToolTip
 from locators.widgets_page_locators import MenuPageLocators as Menu
+from locators.widgets_page_locators import SelectMenuPageLocators as SelectLoc
 from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.webdriver import Keys
 from selenium.webdriver.support.select import Select
@@ -251,8 +252,6 @@ class ProgressBarPage(BasePage):
 
     def get_text_btn(self):
         text_btn = self.get_text(ProgressBar.BUTTON_START_STOP)
-        # if self.element_is_visible(ProgressBar.BUTTON_RESET):
-        #     text_btn = self.get_text(ProgressBar.BUTTON_RESET)
         return text_btn
 
     def click_btn_reset(self):
@@ -291,3 +290,61 @@ class MenuPage(BasePage):
     def get_menu(self):
         menu_list = self.elements_are_present(Menu.MENU_LIST)
         return len(menu_list)
+
+
+class SelectMenuPage(BasePage):
+    def click_select_value(self):
+        self.click_button(SelectLoc.SELECT_VALUE)
+
+    def get_select_value_and_click(self):
+        text = self.elements_are_present(SelectLoc.SELECT_VALUE_ITEMS)
+        item = random.choice(text)
+        input_text = item.text
+        item.click()
+        return input_text
+
+    def get_text_select_value(self):
+        check_text = self.get_text(SelectLoc.SELECT_VALUE_CHECK)
+        return check_text
+
+    def click_select_one(self):
+        self.click_button(SelectLoc.SELECT_ONE)
+
+    def get_select_one_and_click(self):
+        text = self.elements_are_present(SelectLoc.SELECT_VALUE_ITEMS)
+        item = random.choice(text)
+        input_text = item.text
+        item.click()
+        return input_text
+
+    def get_text_select_one(self):
+        check_text = self.get_text(SelectLoc.SELECT_VALUE_CHECK)
+        return check_text
+
+    def get_selected_option_in_select_old_style(self):
+        select_elem = self.element_is_visible(SelectLoc.SELECT_OLD_STYLE)
+        # Создаем объект класса Select
+        select_list = Select(select_elem)
+        # Получаем список всех элементов списка
+        options = select_list.options
+        # Выбираем случайный элемент из списка
+        random_option = random.choice(options)
+        # Сохраняем текст выбранного элемента в переменную
+        selected_option_text = random_option.text
+        # Кликаем на выбранный элемент
+        random_option.click()
+        time.sleep(2)
+        # Находим выбранный элемент по тексту
+        selected_option = select_list.first_selected_option
+        return selected_option.text, selected_option_text
+
+    def get_selected_option_in_select_multi(self):
+        select_elem = self.element_is_visible(SelectLoc.SELECT_MULTI)
+        select_list = Select(select_elem)
+        options = select_list.options
+        random_option = random.choice(options)
+        selected_option_text = random_option.text
+        random_option.click()
+        time.sleep(2)
+        selected_option = select_list.first_selected_option
+        return selected_option.text, selected_option_text

@@ -67,4 +67,4 @@ class SelectMenuPageLocators:
     SELECT_VALUE_CHECK = (By.CSS_SELECTOR, " div[class$='singleValue']")
     SELECT_ONE = (By.CSS_SELECTOR, "div[id='selectOne']")
     SELECT_OLD_STYLE = (By.CSS_SELECTOR, "select[id='oldSelectMenu']")
-
+    SELECT_MULTI = (By.CSS_SELECTOR, "select[id='cars']")
