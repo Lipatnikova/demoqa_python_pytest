@@ -3,9 +3,9 @@ import time
 import pytest
 from data.data import AccordianData, TabData
 from data.data_urls import ACCORDIAN_URL, AUTO_COMPLETE_URL, DATE_PICKER_URL, SLIDER_URL, PROGRESS_BAR_URL, TABS_URL, \
-    TOOL_TIPS_URL
+    TOOL_TIPS_URL, MENU_URL
 from pages.widgets_page import AccordianPage, AutoCompletePage, DatePickerPage, SliderPage, ProgressBarPage, TabsPage, \
-    ToolTipsPage
+    ToolTipsPage, MenuPage
 from locators.widgets_page_locators import ToolTipsPageLocators as ToolTips
 from selenium.common.exceptions import TimeoutException
 
@@ -171,3 +171,10 @@ class TestWidgetsPage:
             text = tool_tips_page.get_text_after_hover_tool_tips()
             assert "You hovered over the" in text, "After hover by element is not visible Tool Tips message or " \
                                                    "message does not contain expected text"
+
+    class TestMenuPage:
+        def test_verify_menu_items(self, driver):
+            menu_page = MenuPage(driver, MENU_URL)
+            menu_page.open()
+            menu = menu_page.get_menu()
+            assert menu == 8, "Menu titles are incorrect"

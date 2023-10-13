@@ -8,6 +8,7 @@ from locators.widgets_page_locators import DatePickerPageLocators as DatePicker
 from locators.widgets_page_locators import SliderPageLocators as Slider
 from locators.widgets_page_locators import ProgressBarPageLocators as ProgressBar
 from locators.widgets_page_locators import ToolTipsPageLocators as ToolTip
+from locators.widgets_page_locators import MenuPageLocators as Menu
 from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.webdriver import Keys
 from selenium.webdriver.support.select import Select
@@ -284,3 +285,9 @@ class ToolTipsPage(BasePage):
 
     def get_text_after_hover_tool_tips(self):
         return self.get_text(ToolTip.AFTER_HOVER_TEXT)
+
+
+class MenuPage(BasePage):
+    def get_menu(self):
+        menu_list = self.elements_are_present(Menu.MENU_LIST)
+        return len(menu_list)
