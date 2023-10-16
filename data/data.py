@@ -64,3 +64,8 @@ class TabData:
             ((By.CSS_SELECTOR, "a[id='demo-tab-use']"), (By.CSS_SELECTOR, "#demo-tabpane-use > p.mt-3")),
             (pytest.param((By.CSS_SELECTOR, "a[id='demo-tab-more']"),
                           (By.CSS_SELECTOR, "#demo-tabpane-more > p.mt-3"), marks=pytest.mark.xfail))]
+
+
+class InteractionsData:
+    LST = ["list", "grid"]
+    ACCEPT_LST = [("acceptable", "Dropped!"), ("not_acceptable", "Drop here")]

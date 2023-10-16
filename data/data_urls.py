@@ -37,7 +37,7 @@ SORTABLE_URL = "https://demoqa.com/sortable"
 SELECTABLE_URL = "https://demoqa.com/selectable"
 RESIZABLE_URL = "https://demoqa.com/resizable"
 DROPPABLE_URL = "https://demoqa.com/droppable"
-DRAQABBLE_URL = "https://demoqa.com/dragabble"
+DRAGABBLE_URL = "https://demoqa.com/dragabble"
 
 BOOK_STORE_URL = "https://demoqa.com/books"
 LOG_IN_URL = "https://demoqa.com/login"

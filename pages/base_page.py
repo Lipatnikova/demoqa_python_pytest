@@ -195,3 +195,13 @@ class BasePage:
 
     def get_attribute_aria_valuenow(self, locator):
         return self.element_is_present(locator).get_attribute('aria-valuenow')
+
+    def action_drag_and_drop_to_element(self, what, where):
+        """Drag and drop element to element"""
+        action = ActionChains(self.driver)
+        action.drag_and_drop(what, where)
+        action.perform()
+
+    def get_attribute_style(self, locator):
+        return self.element_is_visible(locator).get_attribute('style')
+
