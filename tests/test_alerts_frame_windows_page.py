@@ -70,7 +70,7 @@ class TestAlertsPage:
         assert text == "This alert appeared after 5 seconds", \
             "The alert doesn't contain expected text"
 
-    @pytest.mark.parametrize('item', AlertsData.btn_in_alert)
+    @pytest.mark.parametrize('item', AlertsData.BTN_IN_ALERT)
     def test_verify_text_in_alert_confirm_box_will_appear(self, driver, item):
         alert_page = AlertsPage(driver, ALERTS_URL)
         alert_page.open()
@@ -100,7 +100,7 @@ class TestFramesPage:
         count_frames = frames_page.get_count_frames_on_the_page()
         assert count_frames == 2, "Incorrect count of frames on the page"
 
-    @pytest.mark.parametrize("item", FramesData.size_frame)
+    @pytest.mark.parametrize("item", FramesData.SIZE_FRAME)
     def test_verify_frames_options(self, driver, item):
         frame_page = FramesPage(driver, FRAMES_URL)
         frame_page.open()
@@ -150,7 +150,7 @@ class TestModalDialogsPage:
         assert header == "Large Modal", "Modal hasn't header expected text"
         assert len(title) > 100, "Modal hasn't title text"
 
-    @pytest.mark.parametrize('close', ModalData.close_modal)
+    @pytest.mark.parametrize('close', ModalData.CLOSE_MODAL)
     def test_check_close_small_modal_different_ways(self, driver, close):
         modal_page = ModalDialogsPage(driver, MODAL_DIALOGS_URL)
         modal_page.open()
@@ -158,7 +158,7 @@ class TestModalDialogsPage:
         button = modal_page.close_small_modal_different_ways(close)
         assert close in button, f"Didn't click on the {close}"
 
-    @pytest.mark.parametrize('close', ModalData.close_modal)
+    @pytest.mark.parametrize('close', ModalData.CLOSE_MODAL)
     def test_check_close_large_modal_different_ways(self, driver, close):
         modal_page = ModalDialogsPage(driver, MODAL_DIALOGS_URL)
         modal_page.open()

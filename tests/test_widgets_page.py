@@ -12,14 +12,14 @@ class TestWidgetsPage:
 
     class TestAccordian:
 
-        @pytest.mark.parametrize('item', AccordianData.title_text)
+        @pytest.mark.parametrize('item', AccordianData.TITLE_TEXT)
         def test_verify_accordian_title(self, driver, item):
             accordian_page = AccordianPage(driver, ACCORDIAN_URL)
             accordian_page.open()
             text, check = accordian_page.get_text_in_cards(item)
             assert text == check, "Title is incorrect"
 
-        @pytest.mark.parametrize('item', AccordianData.title_text)
+        @pytest.mark.parametrize('item', AccordianData.TITLE_TEXT)
         def test_verify_accordian_content(self, driver, item):
             accordian_page = AccordianPage(driver, ACCORDIAN_URL)
             accordian_page.open()

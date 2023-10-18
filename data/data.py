@@ -43,19 +43,19 @@ class LinksAndUrls:
 
 
 class AlertsData:
-    btn_in_alert = ["accept", "dismiss"]
+    BTN_IN_ALERT = ["accept", "dismiss"]
 
 
 class FramesData:
-    size_frame = ["small", "big"]
+    SIZE_FRAME = ["small", "big"]
 
 
 class ModalData:
-    close_modal = ["Esc", "button", "cross", "Tab and Enter"]
+    CLOSE_MODAL = ["Esc", "button", "cross", "Tab and Enter"]
 
 
 class AccordianData:
-    title_text = ["what", "where", "why"]
+    TITLE_TEXT = ["what", "where", "why"]
 
 
 class TabData:
