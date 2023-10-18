@@ -1,7 +1,7 @@
 from faker import Faker
 import random
 import string
-from data.data import Person, Color, Date
+from data.data import Person, Color, Date, FormsData
 
 faker_ru = Faker('ru_RU')
 faker_en = Faker('En')
@@ -65,3 +65,31 @@ def generator_date():
 def random_num_up_to_one_hundred():
     x = random.randint(0, 100)
     return x
+
+
+def generated_subject():
+    subject = FormsData.SUBJECT
+    random.shuffle(subject)
+    new_list = []
+    for i in range(random.randint(1, 4)):
+        new_list.append(subject[i])
+    return new_list
+
+
+def generated_file():
+    path = rf"C:\Users\svlip\PycharmProjects\demoqa\test{random.randint(0, 999)}.txt"
+    with open(path, 'w+') as f:
+        f.write(f"""Hello World{random.randint(0, 999)}""")
+        f.close()
+    return f.name, path
+
+
+def generated_city():
+    random_list = random.choice(["NCR", "Haryana", "Rajasthan"])
+    city = {
+        "NCR": ["Delhi", "Gurgaon", "Noida"],
+        "Uttar Pradesh": ["Agra", "Lucknow", "Merrut"],
+        "Haryana": ["Karnal", "Panipat"],
+        "Rajasthan": ["Jaipur", "Jaiselmer", ]
+    }
+    return random_list, city[random_list]

@@ -69,3 +69,9 @@ class TabData:
 class InteractionsData:
     LST = ["list", "grid"]
     ACCEPT_LST = [("acceptable", "Dropped!"), ("not_acceptable", "Drop here")]
+
+
+class FormsData:
+    SUBJECT = ["Hindi", "English", "Maths", "Physics", "Chemistry", "Biology", "Computer Science",
+               "Commerce", "Accounting", "Economics", "Arts", "Social Studies", "History", "Civics"]
+

@@ -16,7 +16,7 @@ class FormsPageLocators:
               f"select[class='react-datepicker__month-select'] option[value='{random.randint(1, 12)}']")
     YEARS_CHANGE = (By.CSS_SELECTOR, f"select[class='react-datepicker__year-select']")
     YEARS = (By.CSS_SELECTOR,
-             f"select[class='react-datepicker__year-select'] option[value='{random.randint(1900, 2100)}']")
+             f"select[class='react-datepicker__year-select'] option[value='{random.randint(1940, 2023)}']")
     SUBJECT = (By.CSS_SELECTOR, "input[id='subjectsInput']")
     HOBBIES = (By.CSS_SELECTOR, f"label[for='hobbies-checkbox-{random.randint(1, 3)}']")
     FILE_INPUT = (By.CSS_SELECTOR, "input[id='uploadPicture']")
